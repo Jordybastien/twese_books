@@ -1,0 +1,12 @@
+{
+  "name": "twese",
+  "displayName": "twese",
+  "expo": {
+    "name": "twese",
+    "slug": "twese",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
