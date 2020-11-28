@@ -9,6 +9,7 @@ import {
 import { white, fifthColor, gray } from '../utils/colors';
 import HomeScreen from '../screens/homeScreen';
 import AccountScreen from '../screens/accountScreen';
+import BooksScreen from '../screens/booksScreen';
 
 const RouteConfigs = {
   HomeScreen: {
@@ -16,9 +17,19 @@ const RouteConfigs = {
     component: HomeScreen,
     options: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <AntDesign name="home" size={30} color={focused ? fifthColor : gray} />
+        <Feather name="home" size={30} color={focused ? fifthColor : gray} />
       ),
       title: 'Home',
+    },
+  },
+  BooksScreen: {
+    name: 'BooksScreen',
+    component: BooksScreen,
+    options: {
+      tabBarIcon: ({ tintColor, focused }) => (
+        <Feather name="book" size={30} color={focused ? fifthColor : gray} />
+      ),
+      title: 'Books',
     },
   },
   AccountScreen: {
@@ -26,11 +37,7 @@ const RouteConfigs = {
     component: AccountScreen,
     options: {
       tabBarIcon: ({ tintColor, focused }) => (
-        <FontAwesome
-          name="user-circle-o"
-          size={30}
-          color={focused ? fifthColor : gray}
-        />
+        <Feather name="user" size={30} color={focused ? fifthColor : gray} />
       ),
       title: 'Account',
     },
@@ -62,6 +69,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator {...TabNavigatorConfig}>
       <Tab.Screen {...RouteConfigs['HomeScreen']} />
+      <Tab.Screen {...RouteConfigs['BooksScreen']} />
       <Tab.Screen {...RouteConfigs['AccountScreen']} />
     </Tab.Navigator>
   );
