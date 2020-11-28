@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Spinner } from 'native-base';
 import { useFonts } from '@use-expo/font';
-import { white, fifthColor } from '../utils/colors';
+import { white, fifthColor, firstColor } from '../utils/colors';
 // import LoginScreen from './loginScreen';
 import * as Animatable from 'react-native-animatable';
 import { Grid } from 'react-native-animated-spinkit';
@@ -38,7 +38,7 @@ const SplashScreen = (props) => {
 
     let timer2 = setTimeout(async () => {
       // redirect to homescreen
-      //   props.navigation.navigate('HomeScreen');
+      props.navigation.navigate('SignupScreen');
     }, 8000);
     return () => {
       clearTimeout(timer1);
@@ -53,7 +53,7 @@ const SplashScreen = (props) => {
         style={styles.logo}
       />
 
-      {showSpinner && <Grid size={30} color={white} />}
+      {showSpinner && <Grid size={30} color={firstColor} />}
     </View>
   );
 };
