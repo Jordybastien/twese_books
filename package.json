@@ -43,6 +43,7 @@
     "react-native-sectioned-multi-select": "^0.7.7",
     "react-native-simple-radio-button": "^2.7.4",
     "react-native-simple-toast": "^1.1.2",
+    "react-native-svg": "^12.1.0",
     "react-native-swipe-gestures": "^1.0.5",
     "react-native-unimodules": "~0.10.1",
     "react-native-vector-icons": "^7.0.0",

@@ -38,7 +38,7 @@ const SplashScreen = (props) => {
 
     let timer2 = setTimeout(async () => {
       // redirect to homescreen
-    //   props.navigation.navigate('HomeScreen');
+      //   props.navigation.navigate('HomeScreen');
     }, 8000);
     return () => {
       clearTimeout(timer1);
@@ -48,17 +48,20 @@ const SplashScreen = (props) => {
 
   return (
     <View style={styles.container}>
-      <Image source={require('../../assets/icons/original.svg')} style={styles.logo} />
+      <Image
+        source={require('../../assets/icons/original.png')}
+        style={styles.logo}
+      />
 
-      {showSpinner && <Grid size={30} color={fifthColor} />}
+      {showSpinner && <Grid size={30} color={white} />}
     </View>
   );
 };
 
-const mapStateToProps = ({ loading, authedUser }) => {
+const mapStateToProps = ({ loading }) => {
   return {
     loading,
-    isAuth: Object.keys(authedUser).length !== 0,
+    // isAuth: Object.keys(authedUser).length !== 0,
   };
 };
 
@@ -71,6 +74,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width,
     height,
+    backgroundColor: fifthColor,
   },
   image: {
     flex: 1,
@@ -80,8 +84,7 @@ const styles = StyleSheet.create({
   logo: {
     marginBottom: 100,
     width: width - 100,
-    height: height / 4,
+    height: height / 2,
     resizeMode: 'contain',
   },
-
 });
