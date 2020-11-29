@@ -80,6 +80,7 @@ const styles = StyleSheet.create({
     paddingRight: 20,
     paddingTop: 15,
     flexDirection: 'row',
+    paddingBottom: 10,
   },
   logo: {
     width: 50,

@@ -11,11 +11,11 @@ import { Spinner } from 'native-base';
 
 const { width, height } = Dimensions.get('window');
 
-const Button = ({ label }) => {
+const Button = ({ label, toExecuteOnClick }) => {
   const [loading, setLoading] = useState(false);
   return (
     <View style={styles.btnContainer}>
-      <TouchableOpacity style={styles.buttonHolder}>
+      <TouchableOpacity style={styles.buttonHolder} onPress={toExecuteOnClick}>
         <View style={styles.buttonContainer}>
           {loading ? (
             <Spinner color={blue} />

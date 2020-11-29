@@ -38,7 +38,10 @@ class SignupScreen extends Component {
             label="Confirm Password"
             passProtected={true}
           />
-          <Button label="Signup" />
+          <Button
+            label="Signup"
+            toExecuteOnClick={() => this.props.navigation.navigate('HomeScreen')}
+          />
         </View>
         <View style={styles.loginContainer}>
           <View style={styles.orContainer}>
