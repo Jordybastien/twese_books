@@ -23,22 +23,35 @@ const { width, height } = Dimensions.get('window');
 const BannerComponent = () => {
   return (
     <View style={styles.container}>
-      <View style={styles.bookDetailsContainer}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.bookTitle}>Featured book of February</Text>
-        </View>
-
-        <TouchableOpacity style={styles.buttonHolder}>
-          <View style={styles.buttonContainer}>
-            <Text style={styles.btnLabel}>See more</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
       <View style={styles.imgContainer}>
         <Image
           source={require('../../../../assets/book.jpg')}
           style={styles.bookImg}
         />
+      </View>
+      <View style={styles.bookDetailsContainer}>
+        <View style={styles.titleContainer}>
+          <Text style={styles.bookTitle}>The Institute</Text>
+        </View>
+        <View>
+          <Text style={styles.bookAuthor}>by Stephen King</Text>
+        </View>
+        <View style={styles.progressContainer}>
+          <Text>Read 42%</Text>
+          <Progress.Bar
+            progress={0.42}
+            color={fifthColor}
+            unfilledColor={lightBlue}
+            borderWidth={0}
+            height={10}
+            borderRadius={9}
+          />
+        </View>
+        <TouchableOpacity style={styles.buttonHolder}>
+          <View style={styles.buttonContainer}>
+            <Text style={styles.btnLabel}>Continue Reading</Text>
+          </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -65,13 +78,13 @@ const styles = StyleSheet.create({
   imgContainer: {},
   bookDetailsContainer: {
     justifyContent: 'center',
-    marginRight: 10,
+    marginLeft: 10,
   },
   bookTitle: {
     fontFamily: 'bold',
     color: fifthColor,
-    fontSize: 20,
-    width: 200,
+    fontSize: 25,
+    width: 150,
   },
   bookAuthor: {
     fontFamily: 'regular',
@@ -97,7 +110,5 @@ const styles = StyleSheet.create({
     fontFamily: 'regular',
     fontSize: 15,
   },
-  titleContainer: {
-    marginBottom: 30,
-  },
+  titleContainer: {},
 });

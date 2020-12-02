@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import Header from '../components/homeComponents/header';
 import Banner from '../components/homeComponents/banner';
-import { bgColor } from '../utils/colors';
+import { bgColor, lightOrange } from '../utils/colors';
 import BooksCategories from '../components/homeComponents/bookCategories';
 import BestSellers from '../components/homeComponents/bestSellers';
 import NewReleases from '../components/homeComponents/newRelease';
@@ -22,11 +22,11 @@ const { width, height } = Dimensions.get('window');
 const HomeScreen = (props) => {
   return (
     <View style={styles.container}>
-      <Header />
+      <Header props={props} />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Banner />
         <BooksCategories />
-        <BestSellers />
+        {/* <BestSellers /> */}
         <NewReleases />
         <FeaturedBooks />
         <WeekDeals />
@@ -42,6 +42,6 @@ const styles = StyleSheet.create({
     flex: 1,
     // justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: bgColor,
+    backgroundColor: lightOrange,
   },
 });

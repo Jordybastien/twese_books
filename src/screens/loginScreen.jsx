@@ -9,7 +9,7 @@ import {
   Image,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fifthColor, bgColor, white, lowGray } from '../utils/colors';
+import { fifthColor, bgColor, white, lowGray,lightOrange } from '../utils/colors';
 import TextBox from '../components/textBox';
 import Button from '../components/button';
 
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 100,
     paddingBottom: 100,
-    backgroundColor: bgColor,
+    backgroundColor: lightOrange,
   },
   titleContainer: {},
   title: {
@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   orCont: {
-    backgroundColor: bgColor,
+    backgroundColor: lightOrange,
     marginRight: 10,
     marginLeft: 10,
   },

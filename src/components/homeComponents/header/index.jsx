@@ -8,20 +8,27 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { bgColor, fifthColor, white } from '../../../utils/colors';
-import { Ionicons, Octicons, AntDesign } from '@expo/vector-icons';
+import { bgColor, fifthColor, white, lightOrange,transparentWhite } from '../../../utils/colors';
+import { Ionicons, Octicons, AntDesign, Feather } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
 const { width, height } = Dimensions.get('window');
-const HeaderComponent = () => {
+const HeaderComponent = ({ props }) => {
   return (
     <View style={styles.container}>
       <View style={styles.firstRow}>
         <View>
-          <TouchableOpacity>
-            <Image
+          <TouchableOpacity
+            onPress={() => props.navigation.openDrawer()}
+            style={styles.hamMenu}
+          >
+            {/* <Image
               source={require('../../../../assets/icons/ham.png')}
               style={styles.ham}
-            />
+            /> */}
+            <View style={styles.ham1}></View>
+            <View style={styles.ham2}></View>
+            <View style={styles.ham3}></View>
           </TouchableOpacity>
         </View>
         <View>
@@ -32,10 +39,11 @@ const HeaderComponent = () => {
         </View>
         <View style={styles.bookCartContainer}>
           <TouchableOpacity>
-            <Image
+            {/* <Image
               source={require('../../../../assets/icons/cart.png')}
               style={styles.cart}
-            />
+            /> */}
+            <Feather name="shopping-bag" size={24} color={fifthColor} />
           </TouchableOpacity>
         </View>
       </View>
@@ -58,13 +66,13 @@ const HeaderComponent = () => {
   );
 };
 
-export default HeaderComponent;
+export default connect()(HeaderComponent);
 
 const styles = StyleSheet.create({
   firstRow: {
     justifyContent: 'space-between',
     width: width,
-    backgroundColor: bgColor,
+    backgroundColor: lightOrange,
 
     paddingLeft: 20,
     paddingRight: 20,
@@ -74,7 +82,7 @@ const styles = StyleSheet.create({
   secondRow: {
     justifyContent: 'space-between',
     width: width,
-    backgroundColor: bgColor,
+    backgroundColor: lightOrange,
 
     paddingLeft: 20,
     paddingRight: 20,
@@ -97,6 +105,7 @@ const styles = StyleSheet.create({
     borderRadius: 50,
     alignItems: 'center',
     paddingLeft: 20,
+    backgroundColor: transparentWhite,
   },
   filterContainer: {
     width: 50,
@@ -109,5 +118,26 @@ const styles = StyleSheet.create({
   },
   txtBox: {
     marginLeft: 10,
+  },
+  hamMenu: {},
+  ham1: {
+    backgroundColor: fifthColor,
+    width: 15,
+    height: 3,
+    marginBottom: 3,
+    borderRadius: 5,
+  },
+  ham2: {
+    backgroundColor: fifthColor,
+    width: 20,
+    height: 3,
+    marginBottom: 3,
+    borderRadius: 5,
+  },
+  ham3: {
+    backgroundColor: fifthColor,
+    width: 10,
+    height: 3,
+    borderRadius: 5,
   },
 });

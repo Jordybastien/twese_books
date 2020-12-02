@@ -4,6 +4,7 @@ import SplashScreen from '../screens/splashScreen';
 import SignupScreen from '../screens/signupScreen';
 import LoginScreen from '../screens/loginScreen';
 import TabNavigator from './tabNavigator';
+import DrawerNavigator from './drawerNavigator';
 import { blue, white } from '../utils/colors';
 
 const StackNavigatorConfig = {
@@ -17,7 +18,7 @@ const StackConfig = {
   },
   HomeScreen: {
     name: 'HomeScreen',
-    component: TabNavigator,
+    component: DrawerNavigator,
     options: { headerShown: false },
     // options: {
     //   headerShown: true,

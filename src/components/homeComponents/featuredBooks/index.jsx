@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import SingleBook from './singleBook';
 import { Feather } from '@expo/vector-icons';
-import { fifthColor } from '../../../utils/colors';
+import { fifthColor, white } from '../../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
@@ -45,8 +45,9 @@ export default BestSellers;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 25,
-    marginLeft: 5,
+    paddingTop: 25,
+    // marginLeft: 5,
+    backgroundColor: white,
   },
   header: {
     flexDirection: 'row',

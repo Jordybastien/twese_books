@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
-import { fifthColor, bgColor } from '../utils/colors';
+import { fifthColor, bgColor, lightOrange } from '../utils/colors';
 import Constants from 'expo-constants';
 import { StatusBar, View } from 'react-native';
 import MainNav from './stackNavigator';
@@ -15,7 +15,7 @@ class Router extends Component {
   render() {
     return (
       <NavigationContainer>
-        <AppStatusBar backgroundColor={bgColor} barStyle="" />
+        <AppStatusBar backgroundColor={lightOrange} barStyle="" />
         <MainNav />
       </NavigationContainer>
     );
