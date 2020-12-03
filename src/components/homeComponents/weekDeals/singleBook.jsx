@@ -20,12 +20,16 @@ import {
 } from '../../../utils/colors';
 import StarRating from 'react-native-star-rating';
 import { Entypo } from '@expo/vector-icons';
+import { connect } from 'react-redux';
 
 const { width, height } = Dimensions.get('window');
 
-const BookCard = () => {
+const BookCard = ({ props }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => props.navigation.navigate('SingleBookScreen')}
+    >
       <View style={styles.bookContainer}>
         <View style={styles.imgContainer}>
           <Image
@@ -58,7 +62,7 @@ const BookCard = () => {
           </View>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

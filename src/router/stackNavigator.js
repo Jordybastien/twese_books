@@ -5,6 +5,7 @@ import SignupScreen from '../screens/signupScreen';
 import LoginScreen from '../screens/loginScreen';
 import TabNavigator from './tabNavigator';
 import DrawerNavigator from './drawerNavigator';
+import SingleBookScreen from '../screens/singleBookScreen';
 import { blue, white } from '../utils/colors';
 
 const StackNavigatorConfig = {
@@ -40,6 +41,11 @@ const StackConfig = {
     component: LoginScreen,
     options: { headerShown: false },
   },
+  SingleBookScreen: {
+    name: 'SingleBookScreen',
+    component: SingleBookScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -50,6 +56,7 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['HomeScreen']} />
       <Stack.Screen {...StackConfig['SignupScreen']} />
       <Stack.Screen {...StackConfig['LoginScreen']} />
+      <Stack.Screen {...StackConfig['SingleBookScreen']} />
     </Stack.Navigator>
   );
 };

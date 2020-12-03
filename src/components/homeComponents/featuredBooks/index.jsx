@@ -13,7 +13,7 @@ import { fifthColor, white } from '../../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-const BestSellers = () => {
+const BestSellers = ({props}) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -29,12 +29,12 @@ const BestSellers = () => {
         showsHorizontalScrollIndicator={false}
         style={{ flexDirection: 'row', paddingLeft: 20 }}
       >
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
+        <SingleBook props={props}/>
+        <SingleBook props={props}/>
+        <SingleBook props={props}/>
+        <SingleBook props={props}/>
+        <SingleBook props={props}/>
+        <SingleBook props={props}/>
       </ScrollView>
     </View>
   );

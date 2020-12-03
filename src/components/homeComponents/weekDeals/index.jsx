@@ -13,7 +13,7 @@ import { fifthColor, white } from '../../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-const WeekDeals = () => {
+const WeekDeals = ({ props }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -29,9 +29,9 @@ const WeekDeals = () => {
         showsHorizontalScrollIndicator={false}
         style={{ flexDirection: 'row', paddingLeft: 20 }}
       >
-        <SingleBook />
-        <SingleBook />
-        <SingleBook />
+        <SingleBook props={props} />
+        <SingleBook props={props} />
+        <SingleBook props={props} />
       </ScrollView>
     </View>
   );

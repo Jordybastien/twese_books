@@ -20,7 +20,7 @@ import Button from '../../../components/button';
 
 const { width, height } = Dimensions.get('window');
 
-const BannerComponent = () => {
+const BannerComponent = ({ props }) => {
   return (
     <View style={styles.container}>
       <View style={styles.bookDetailsContainer}>
@@ -28,7 +28,10 @@ const BannerComponent = () => {
           <Text style={styles.bookTitle}>Featured book of February</Text>
         </View>
 
-        <TouchableOpacity style={styles.buttonHolder}>
+        <TouchableOpacity
+          style={styles.buttonHolder}
+          onPress={() => props.navigation.navigate('SingleBookScreen')}
+        >
           <View style={styles.buttonContainer}>
             <Text style={styles.btnLabel}>See more</Text>
           </View>

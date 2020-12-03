@@ -24,12 +24,12 @@ const HomeScreen = (props) => {
     <View style={styles.container}>
       <Header props={props} />
       <ScrollView showsVerticalScrollIndicator={false}>
-        <Banner />
-        <BooksCategories />
+        <Banner props={props} />
+        <BooksCategories props={props} />
         {/* <BestSellers /> */}
-        <NewReleases />
-        <FeaturedBooks />
-        <WeekDeals />
+        <NewReleases props={props} />
+        <FeaturedBooks props={props} />
+        <WeekDeals props={props} />
       </ScrollView>
     </View>
   );

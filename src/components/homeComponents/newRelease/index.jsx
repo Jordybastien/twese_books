@@ -13,7 +13,7 @@ import { fifthColor, white } from '../../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-const BestSellers = () => {
+const BestSellers = ({ props }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -24,9 +24,9 @@ const BestSellers = () => {
           <Feather name="arrow-right" size={24} color={fifthColor} />
         </TouchableOpacity>
       </View>
-      <SingleBook />
-      <SingleBook />
-      <SingleBook />
+      <SingleBook props={props} />
+      <SingleBook props={props} />
+      <SingleBook props={props} />
     </View>
   );
 };

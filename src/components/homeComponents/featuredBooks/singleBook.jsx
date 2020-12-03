@@ -1,13 +1,23 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import { bgColor, fifthColor, firstColor, gray } from '../../../utils/colors';
 import StarRating from 'react-native-star-rating';
 
 const { width, height } = Dimensions.get('window');
 
-const SingleBook = () => {
+const SingleBook = ({ props }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => props.navigation.navigate('SingleBookScreen')}
+    >
       <View style={styles.artWorkHolder}>
         <Image
           source={require('../../../../assets/book.jpg')}
@@ -38,7 +48,7 @@ const SingleBook = () => {
           <Text style={styles.bookReviews}>6 reviews</Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

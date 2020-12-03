@@ -20,9 +20,12 @@ import { Entypo } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
-const BookCard = () => {
+const BookCard = ({ props }) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => props.navigation.navigate('SingleBookScreen')}
+    >
       <View style={styles.bookContainer}>
         <View style={styles.imgContainer}>
           <Image
@@ -45,7 +48,7 @@ const BookCard = () => {
           <Entypo name="dots-three-horizontal" size={24} color={lowGray} />
         </TouchableOpacity>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
