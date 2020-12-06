@@ -87,10 +87,13 @@ class SingleBookScreen extends Component {
               <View>
                 <Text style={styles.reviewCount}>(3,714)</Text>
               </View>
-              <View style={styles.authorContainer}>
+              <TouchableOpacity
+                style={styles.authorContainer}
+                onPress={() => this.props.navigation.navigate('AuthorScreen')}
+              >
                 <Text style={styles.authorLabel}>By Author</Text>
                 <Text style={styles.authorValue}>Anna Banks</Text>
-              </View>
+              </TouchableOpacity>
             </View>
             <View style={styles.tabHeader}>
               <TouchableOpacity

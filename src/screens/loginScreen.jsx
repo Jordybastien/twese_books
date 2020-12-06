@@ -29,8 +29,8 @@ class LoginScreen extends Component {
           <Text style={styles.title}>Login</Text>
         </View>
         <View style={styles.formContainer}>
-          <TextBox name="email" label="Email" passProtected={false} />
-          <TextBox name="password" label="Password" passProtected={true} />
+          <TextBox name="email" label="Email" passProtected={false} multiline={false}/>
+          <TextBox name="password" label="Password" passProtected={true} multiline={false}/>
           <View style={styles.forgotCont}>
             <TouchableOpacity>
               <Text style={styles.forgotLabel}>Forgot Password?</Text>

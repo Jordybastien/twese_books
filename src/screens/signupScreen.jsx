@@ -9,7 +9,13 @@ import {
   Image,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fifthColor, bgColor, white, lowGray,lightOrange } from '../utils/colors';
+import {
+  fifthColor,
+  bgColor,
+  white,
+  lowGray,
+  lightOrange,
+} from '../utils/colors';
 import TextBox from '../components/textBox';
 import Button from '../components/button';
 
@@ -29,18 +35,41 @@ class SignupScreen extends Component {
           <Text style={styles.title}>Signup</Text>
         </View>
         <View style={styles.formContainer}>
-          <TextBox name="firstName" label="First Name" passProtected={false} />
-          <TextBox name="lastName" label="Last Name" passProtected={false} />
-          <TextBox name="email" label="Email" passProtected={false} />
-          <TextBox name="password" label="Password" passProtected={true} />
+          <TextBox
+            name="firstName"
+            label="First Name"
+            passProtected={false}
+            multiline={false}
+          />
+          <TextBox
+            name="lastName"
+            label="Last Name"
+            passProtected={false}
+            multiline={false}
+          />
+          <TextBox
+            name="email"
+            label="Email"
+            passProtected={false}
+            multiline={false}
+          />
+          <TextBox
+            name="password"
+            label="Password"
+            passProtected={true}
+            multiline={false}
+          />
           <TextBox
             name="confirmPassword"
             label="Confirm Password"
             passProtected={true}
+            multiline={false}
           />
           <Button
             label="Signup"
-            toExecuteOnClick={() => this.props.navigation.navigate('HomeScreen')}
+            toExecuteOnClick={() =>
+              this.props.navigation.navigate('HomeScreen')
+            }
           />
         </View>
         <View style={styles.loginContainer}>
