@@ -8,6 +8,7 @@ import DrawerNavigator from './drawerNavigator';
 import SingleBookScreen from '../screens/singleBookScreen';
 import AuthorScreen from '../screens/authorScreen';
 import CartScreen from '../screens/cartScreen';
+import FilterScreen from '../screens/filterScreen';
 import { blue, white } from '../utils/colors';
 
 const StackNavigatorConfig = {
@@ -23,15 +24,6 @@ const StackConfig = {
     name: 'HomeScreen',
     component: DrawerNavigator,
     options: { headerShown: false },
-    // options: {
-    //   headerShown: true,
-    //   headerStyle: {
-    //     backgroundColor: blue,
-    //   },
-    //   headerTintColor: white,
-    //   title: 'Minicom-CBTC',
-    //   headerLeft: null,
-    // },
   },
   SignupScreen: {
     name: 'SignupScreen',
@@ -58,6 +50,11 @@ const StackConfig = {
     component: CartScreen,
     options: { headerShown: false },
   },
+  FilterScreen: {
+    name: 'FilterScreen',
+    component: FilterScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -71,6 +68,7 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['SingleBookScreen']} />
       <Stack.Screen {...StackConfig['AuthorScreen']} />
       <Stack.Screen {...StackConfig['CartScreen']} />
+      <Stack.Screen {...StackConfig['FilterScreen']} />
     </Stack.Navigator>
   );
 };

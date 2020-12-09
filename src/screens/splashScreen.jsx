@@ -38,7 +38,7 @@ const SplashScreen = (props) => {
 
     let timer2 = setTimeout(async () => {
       // redirect to homescreen
-      props.navigation.navigate('LoginScreen');
+      props.navigation.navigate('HomeScreen');
     }, 8000);
     return () => {
       clearTimeout(timer1);

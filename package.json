@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@expo/vector-icons": "^10.0.0",
+    "@miblanchard/react-native-slider": "^1.5.0",
+    "@react-native-community/checkbox": "^0.5.6",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "^5.7.1",
     "@react-navigation/drawer": "^5.11.4",
@@ -24,7 +26,9 @@
     "expo-splash-screen": "^0.3.1",
     "expo-status-bar": "^1.0.0",
     "expo-updates": "~0.2.8",
+    "i": "^0.3.6",
     "native-base": "^2.13.13",
+    "npm": "^6.14.9",
     "react": "16.11.0",
     "react-dom": "16.11.0",
     "react-native": "0.62.2",

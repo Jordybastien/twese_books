@@ -101,7 +101,7 @@ class SingleBookScreen extends Component {
                 style={styles.authorContainer}
                 onPress={() => this.props.navigation.navigate('AuthorScreen')}
               >
-                <Text style={styles.authorLabel}>By Author</Text>
+                <Text style={styles.authorLabel}>By Author:{' '}</Text>
                 <Text style={styles.authorValue}>Anna Banks</Text>
               </TouchableOpacity>
             </View>
@@ -267,11 +267,11 @@ const styles = StyleSheet.create({
   },
   authorLabel: {
     color: gray,
-    fontFamily: 'bold',
+    fontFamily: 'regular',
   },
   authorValue: {
     color: gray,
-    fontFamily: 'regular',
+    fontFamily: 'bold',
   },
   tabHeader: {
     flexDirection: 'row',

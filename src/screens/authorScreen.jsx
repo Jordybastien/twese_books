@@ -39,34 +39,35 @@ class AuthorScreen extends Component {
     return (
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <GestureRecognizer
+          {/* <GestureRecognizer
             onSwipeLeft={() => this.setState({ count: 2 })}
             onSwipeRight={() => this.setState({ count: 1 })}
             config={config}
             style={styles.upperPart}
-          >
-            {count === 1 && (
-              <>
-                <View style={styles.imageContainer}>
-                  <Image
-                    source={require('../../assets/book-3.png')}
-                    style={styles.userImage}
-                  />
-                </View>
-                <View style={styles.authorContainer}>
-                  <Text style={styles.authorName}>Muhizi King</Text>
-                </View>
-              </>
-            )}
-            {count === 2 && (
-              <View style={styles.authorBioContainer}>
-                <Text style={styles.authorBio}>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                  do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                </Text>
-              </View>
-            )}
-            <View style={styles.dotsContainer}>
+          > */}
+          <View style={styles.upperPart}>
+            {/* {count === 1 && ( */}
+            {/* <> */}
+            <View style={styles.imageContainer}>
+              <Image
+                source={require('../../assets/book-3.png')}
+                style={styles.userImage}
+              />
+            </View>
+            <View style={styles.authorContainer}>
+              <Text style={styles.authorName}>Muhizi King</Text>
+            </View>
+            {/* </> */}
+            {/* )} */}
+            {/* {count === 2 && ( */}
+            <View style={styles.authorBioContainer}>
+              <Text style={styles.authorBio}>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              </Text>
+            </View>
+            {/* )} */}
+            {/* <View style={styles.dotsContainer}>
               {count === 1 && (
                 <>
                   <TouchableOpacity
@@ -91,8 +92,9 @@ class AuthorScreen extends Component {
                   />
                 </>
               )}
-            </View>
-          </GestureRecognizer>
+            </View> */}
+          </View>
+          {/* </GestureRecognizer> */}
           <View style={styles.backBtnContainer}>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
               <AntDesign name="close" size={24} color={fifthColor} />
@@ -135,6 +137,7 @@ const styles = StyleSheet.create({
   },
   authorContainer: {
     marginTop: 20,
+    marginBottom: 15,
   },
   authorName: {
     fontFamily: 'bold',

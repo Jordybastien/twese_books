@@ -93,7 +93,12 @@ class CartScreen extends Component {
               <Text style={styles.footerElementValue}>$ 29.95</Text>
             </View>
           </View>
-          <Button label="Checkout" />
+          <Button
+            label="Checkout"
+            toExecuteOnClick={() =>
+              this.props.navigation.navigate('LoginScreen')
+            }
+          />
         </View>
       </View>
     );

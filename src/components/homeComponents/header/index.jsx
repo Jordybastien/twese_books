@@ -28,10 +28,6 @@ const HeaderComponent = ({ props }) => {
             onPress={() => props.navigation.openDrawer()}
             style={styles.hamMenu}
           >
-            {/* <Image
-              source={require('../../../../assets/icons/ham.png')}
-              style={styles.ham}
-            /> */}
             <View style={styles.ham1}></View>
             <View style={styles.ham2}></View>
             <View style={styles.ham3}></View>
@@ -47,10 +43,6 @@ const HeaderComponent = ({ props }) => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate('CartScreen')}
           >
-            {/* <Image
-              source={require('../../../../assets/icons/cart.png')}
-              style={styles.cart}
-            /> */}
             <Feather name="shopping-bag" size={24} color={fifthColor} />
           </TouchableOpacity>
         </View>
@@ -66,7 +58,10 @@ const HeaderComponent = ({ props }) => {
             />
           </View>
         </View>
-        <TouchableOpacity style={styles.filterContainer}>
+        <TouchableOpacity
+          style={styles.filterContainer}
+          onPress={() => props.navigation.navigate('FilterScreen')}
+        >
           <Octicons name="settings" size={24} color={white} />
         </TouchableOpacity>
       </View>

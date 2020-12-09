@@ -15,7 +15,7 @@ class Router extends Component {
   render() {
     return (
       <NavigationContainer>
-        <AppStatusBar backgroundColor={lightOrange} barStyle="" />
+        <AppStatusBar backgroundColor={fifthColor} barStyle="" />
         <MainNav />
       </NavigationContainer>
     );

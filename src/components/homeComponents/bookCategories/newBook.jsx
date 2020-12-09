@@ -6,9 +6,9 @@ import { Feather } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('window');
 
-const BookCard = ({ title, icon }) => {
+const BookCard = ({ title, icon, containerColor }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: containerColor }]}>
       <View style={styles.iconHolder}>
         <Image
           source={{
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     paddingTop: 10,
-    backgroundColor: fifthColor,
+    // backgroundColor: fifthColor,
     borderRadius: 10,
     // height: 250,
     paddingBottom: 10,

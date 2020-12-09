@@ -8,7 +8,7 @@ import {
   Dimensions,
 } from 'react-native';
 import BookCard from './newBook';
-import { lightOrange, white } from '../../../utils/colors';
+import { lightOrange, white, fifthColor } from '../../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,10 +24,26 @@ const BooksCategories = () => {
           showsHorizontalScrollIndicator={false}
           style={{ paddingLeft: 20 }}
         >
-          <BookCard title="Humor" icon="https://res.cloudinary.com/dodfpnbik/image/upload/v1606845478/humor_bosep3.png" />
-          <BookCard title="Poetry" icon="https://res.cloudinary.com/dodfpnbik/image/upload/v1606845829/poetry_up3rpf.png"/>
-          <BookCard title="Short Story" icon="https://res.cloudinary.com/dodfpnbik/image/upload/v1606845829/story_bedcmn.png"/>
-          <BookCard title="Health" icon="https://res.cloudinary.com/dodfpnbik/image/upload/v1606845829/health_j4tv5s.png"/>
+          <BookCard
+            title="Humor"
+            icon="https://res.cloudinary.com/dodfpnbik/image/upload/v1606845478/humor_bosep3.png"
+            containerColor={'#CB0162'}
+          />
+          <BookCard
+            title="Poetry"
+            icon="https://res.cloudinary.com/dodfpnbik/image/upload/v1606845829/poetry_up3rpf.png"
+            containerColor={'#0F9B8E'}
+          />
+          <BookCard
+            title="Short Story"
+            icon="https://res.cloudinary.com/dodfpnbik/image/upload/v1606845829/story_bedcmn.png"
+            containerColor={'maroon'}
+          />
+          <BookCard
+            title="Health"
+            icon="https://res.cloudinary.com/dodfpnbik/image/upload/v1606845829/health_j4tv5s.png"
+            containerColor={'#02066F'}
+          />
         </ScrollView>
       </View>
     </ImageBackground>

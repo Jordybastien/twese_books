@@ -69,7 +69,7 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator {...TabNavigatorConfig}>
       <Tab.Screen {...RouteConfigs['HomeScreen']} />
-      <Tab.Screen {...RouteConfigs['BooksScreen']} />
+      {/* <Tab.Screen {...RouteConfigs['BooksScreen']} /> */}
       <Tab.Screen {...RouteConfigs['AccountScreen']} />
     </Tab.Navigator>
   );
