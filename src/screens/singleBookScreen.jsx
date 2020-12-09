@@ -27,18 +27,25 @@ import ReviewsTab from '../components/singleBookComponents/reviewsTab';
 import ProductTab from '../components/singleBookComponents/productTab';
 import DescriptionTab from '../components/singleBookComponents/descriptionTab';
 import ReviewsText from '../components/singleBookComponents/reviewsText';
+import AddToCart from '../components/cart/addToCart';
 
 const { width, height } = Dimensions.get('window');
 
 class SingleBookScreen extends Component {
   state = {
     tab: 1,
+    showCart: false,
   };
   render() {
-    const { tab } = this.state;
+    const { tab, showCart } = this.state;
     return (
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
+          <AddToCart
+            isVisible={showCart}
+            hideModal={() => this.setState({ showCart: false })}
+            props={this.props}
+          />
           <View style={styles.imageHolder}>
             <Image
               source={require('../../assets/book-3.png')}
@@ -55,7 +62,10 @@ class SingleBookScreen extends Component {
               <Feather name="bookmark" size={24} color={fifthColor} />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.addToCartContainer}>
+          <TouchableOpacity
+            style={styles.addToCartContainer}
+            onPress={() => this.setState({ showCart: true })}
+          >
             <View>
               <AntDesign name="shoppingcart" size={24} color={white} />
             </View>

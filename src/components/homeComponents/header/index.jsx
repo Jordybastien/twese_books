@@ -8,7 +8,13 @@ import {
   TouchableOpacity,
   TextInput,
 } from 'react-native';
-import { bgColor, fifthColor, white, lightOrange,transparentWhite } from '../../../utils/colors';
+import {
+  bgColor,
+  fifthColor,
+  white,
+  lightOrange,
+  transparentWhite,
+} from '../../../utils/colors';
 import { Ionicons, Octicons, AntDesign, Feather } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
@@ -38,7 +44,9 @@ const HeaderComponent = ({ props }) => {
           />
         </View>
         <View style={styles.bookCartContainer}>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => props.navigation.navigate('CartScreen')}
+          >
             {/* <Image
               source={require('../../../../assets/icons/cart.png')}
               style={styles.cart}
