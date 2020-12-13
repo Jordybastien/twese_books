@@ -14,11 +14,11 @@ import {
   firstColor,
   lowGray,
   gray,
-} from '../../../utils/colors';
+} from '../../utils/colors';
 import StarRating from 'react-native-star-rating';
 import { Entypo } from '@expo/vector-icons';
-import { BookCover } from '../../../utils/constants';
-import { handleFetchBookInfo } from '../../../actions/bookInfo';
+import { BookCover } from '../../utils/constants';
+import { handleFetchBookInfo } from '../../actions/bookInfo';
 
 const { width, height } = Dimensions.get('window');
 
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   bookTitle: {
     color: fifthColor,
     fontFamily: 'bold',
-    fontSize: 20,
+    fontSize: 16,
     width: 150,
   },
   bookAuthor: {

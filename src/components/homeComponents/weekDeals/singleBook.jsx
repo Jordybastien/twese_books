@@ -21,25 +21,34 @@ import {
 import StarRating from 'react-native-star-rating';
 import { Entypo } from '@expo/vector-icons';
 import { connect } from 'react-redux';
+import { BookCover } from '../../../utils/constants';
+import { handleFetchBookInfo } from '../../../actions/bookInfo';
 
 const { width, height } = Dimensions.get('window');
 
-const BookCard = ({ props }) => {
+const BookCard = ({ props, book }) => {
+  const handleBookInfo = () => {
+    props
+      .dispatch(handleFetchBookInfo(book.id))
+      .then(() => props.navigation.navigate('SingleBookScreen'));
+  };
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() => props.navigation.navigate('SingleBookScreen')}
+      onPress={handleBookInfo}
     >
       <View style={styles.bookContainer}>
         <View style={styles.imgContainer}>
           <Image
-            source={require('../../../../assets/book.jpg')}
+            source={{
+              uri: `${BookCover}${book.book_image_name}`,
+            }}
             style={styles.bookImg}
           />
         </View>
         <View style={styles.detailsContainer}>
           <View>
-            <Text style={styles.bookTitle}>The First Man On The Moon</Text>
+            <Text style={styles.bookTitle}>{book.book_name}</Text>
           </View>
           <View style={{ marginBottom: 20 }}>
             <Text style={styles.bookAuthor}>by Laurent Pehem</Text>

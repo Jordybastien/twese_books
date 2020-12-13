@@ -13,25 +13,26 @@ import { fifthColor, white } from '../../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-const BestSellers = ({ props }) => {
+const PopularBooks = ({ props, title }) => {
+  const { popularBooks } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerTitle}>New Release</Text>
+          <Text style={styles.headerTitle}>{title}</Text>
         </View>
         <TouchableOpacity>
           <Feather name="arrow-right" size={24} color={fifthColor} />
         </TouchableOpacity>
       </View>
-      <SingleBook props={props} />
-      <SingleBook props={props} />
-      <SingleBook props={props} />
+      {popularBooks.map((book, index) => (
+        <SingleBook key={index} props={props} book={book} />
+      ))}
     </View>
   );
 };
 
-export default BestSellers;
+export default PopularBooks;
 
 const styles = StyleSheet.create({
   container: {

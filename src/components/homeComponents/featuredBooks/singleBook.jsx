@@ -9,27 +9,33 @@ import {
 } from 'react-native';
 import { bgColor, fifthColor, firstColor, gray } from '../../../utils/colors';
 import StarRating from 'react-native-star-rating';
+import { BookCover } from '../../../utils/constants';
+import { handleFetchBookInfo } from '../../../actions/bookInfo';
 
 const { width, height } = Dimensions.get('window');
 
-const SingleBook = ({ props }) => {
+const SingleBook = ({ props, book }) => {
+  const handleBookInfo = () => {
+    props
+      .dispatch(handleFetchBookInfo(book.id))
+      .then(() => props.navigation.navigate('SingleBookScreen'));
+  };
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => props.navigation.navigate('SingleBookScreen')}
-    >
+    <TouchableOpacity style={styles.container} onPress={handleBookInfo}>
       <View style={styles.artWorkHolder}>
         <Image
-          source={require('../../../../assets/book.jpg')}
+          source={{
+            uri: `${BookCover}${book.book_image_name}`,
+          }}
           style={styles.bookImg}
         />
       </View>
       <View style={styles.detailsHolder}>
         <View style={{ marginBottom: 15 }}>
-          <Text style={styles.bookTitle}>Meet Cute</Text>
+          <Text style={styles.bookTitle}>{book.book_name}</Text>
         </View>
         <View>
-          <Text style={styles.bookAuthor}>by Victor Davis</Text>
+          <Text style={styles.bookAuthor}>{book.name}</Text>
         </View>
         <View style={{ width: 80 }}>
           <StarRating

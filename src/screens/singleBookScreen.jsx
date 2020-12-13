@@ -28,6 +28,8 @@ import ProductTab from '../components/singleBookComponents/productTab';
 import DescriptionTab from '../components/singleBookComponents/descriptionTab';
 import ReviewsText from '../components/singleBookComponents/reviewsText';
 import AddToCart from '../components/cart/addToCart';
+import { BookCover } from '../utils/constants';
+import { handleFetchAuthorInfo } from '../actions/author';
 
 const { width, height } = Dimensions.get('window');
 
@@ -36,8 +38,18 @@ class SingleBookScreen extends Component {
     tab: 1,
     showCart: false,
   };
+
+  handleAuthorInfo = (authorId) => {
+    this.props
+      .dispatch(handleFetchAuthorInfo(authorId))
+      .then(() => this.props.navigation.navigate('AuthorScreen'));
+  };
+
   render() {
     const { tab, showCart } = this.state;
+
+    const { bookInfo } = this.props;
+
     return (
       <View style={styles.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -48,7 +60,9 @@ class SingleBookScreen extends Component {
           />
           <View style={styles.imageHolder}>
             <Image
-              source={require('../../assets/book-3.png')}
+              source={{
+                uri: `${BookCover}${bookInfo[0].book_image_name}`,
+              }}
               style={styles.userImage}
             />
           </View>
@@ -75,10 +89,10 @@ class SingleBookScreen extends Component {
           </TouchableOpacity>
           <View style={styles.bookDetailsContainer}>
             <View style={styles.bookTitleContainer}>
-              <Text style={styles.bookTitle}>Institute</Text>
+              <Text style={styles.bookTitle}>{bookInfo[0].book_name}</Text>
             </View>
             <View style={styles.bookPriceContainer}>
-              <Text style={styles.bookPrice}>$ 29.95</Text>
+              <Text style={styles.bookPrice}>$ {bookInfo[0].book_price}</Text>
             </View>
             <View style={styles.ratingsWrapper}>
               <View>
@@ -95,14 +109,16 @@ class SingleBookScreen extends Component {
                 />
               </View>
               <View>
-                <Text style={styles.reviewCount}>(3,714)</Text>
+                <Text style={styles.reviewCount}>
+                  ({bookInfo[0].book_pages})
+                </Text>
               </View>
               <TouchableOpacity
                 style={styles.authorContainer}
-                onPress={() => this.props.navigation.navigate('AuthorScreen')}
+                onPress={() => this.handleAuthorInfo(bookInfo[0].user_id)}
               >
-                <Text style={styles.authorLabel}>By Author:{' '}</Text>
-                <Text style={styles.authorValue}>Anna Banks</Text>
+                <Text style={styles.authorLabel}>By Author: </Text>
+                <Text style={styles.authorValue}>{bookInfo[0].name}</Text>
               </TouchableOpacity>
             </View>
             <View style={styles.tabHeader}>
@@ -156,9 +172,9 @@ class SingleBookScreen extends Component {
               </TouchableOpacity>
             </View>
             <View style={styles.tabContentHolder}>
-              {tab === 1 && <DescriptionTab />}
-              {tab === 2 && <ProductTab />}
-              {tab === 3 && <ReviewsTab />}
+              {tab === 1 && <DescriptionTab bookInfo={bookInfo} />}
+              {tab === 2 && <ProductTab bookInfo={bookInfo} />}
+              {tab === 3 && <ReviewsTab bookInfo={bookInfo} />}
               {tab === 3 && <ReviewsText />}
             </View>
           </View>
@@ -168,7 +184,13 @@ class SingleBookScreen extends Component {
   }
 }
 
-export default connect()(SingleBookScreen);
+const mapStateToProps = ({ bookInfo }) => {
+  return {
+    bookInfo: bookInfo && Object.values(bookInfo),
+  };
+};
+
+export default connect(mapStateToProps)(SingleBookScreen);
 
 const styles = StyleSheet.create({
   container: {

@@ -9,51 +9,43 @@ import {
 } from 'react-native';
 import SingleBook from './singleBook';
 import { Feather } from '@expo/vector-icons';
-import { fifthColor, white } from '../../../utils/colors';
+import { fifthColor, white } from '../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-const NewRelease = ({ props }) => {
-  const { newRelease } = props;
+const BookCategories = ({ props, title }) => {
+  const { genreBooks, bookCategories } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View>
-          <Text style={styles.headerTitle}>New Release</Text>
+          <Text style={styles.headerTitle}>{title}</Text>
         </View>
-        <TouchableOpacity>
+        {/* <TouchableOpacity>
           <Feather name="arrow-right" size={24} color={fifthColor} />
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        style={{ flexDirection: 'row', paddingLeft: 20 }}
-      >
-        {newRelease.map((book) => (
-          <SingleBook props={props} book={book} />
-        ))}
-      </ScrollView>
+      {genreBooks.map((book, index) => (
+        <SingleBook key={index} props={props} book={book} />
+      ))}
     </View>
   );
 };
 
-export default NewRelease;
+export default BookCategories;
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 25,
-    // marginLeft: 5,
-    backgroundColor: white,
+    paddingLeft: 15,
+    paddingRight: 15,
+    marginTop: 20,
   },
   header: {
     flexDirection: 'row',
-    paddingLeft: 20,
-    paddingRight: 20,
-    // width: width - 100,
     justifyContent: 'space-between',
-    marginBottom: 20,
+    marginBottom: 10,
   },
   headerTitle: {
     fontFamily: 'bold',

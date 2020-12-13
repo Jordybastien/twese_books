@@ -4,13 +4,13 @@ import { fifthColor, bgColor, lightOrange } from '../utils/colors';
 import Constants from 'expo-constants';
 import { StatusBar, View } from 'react-native';
 import MainNav from './stackNavigator';
-// import { handleInitialData } from '../actions/initialData';
+import { handleInitialData } from '../actions/initialData';
 import { connect } from 'react-redux';
 
 class Router extends Component {
-  // componentDidMount() {
-  //   this.props.dispatch(handleInitialData());
-  // }
+  componentDidMount() {
+    this.props.dispatch(handleInitialData());
+  }
 
   render() {
     return (

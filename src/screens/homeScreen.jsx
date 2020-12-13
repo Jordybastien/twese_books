@@ -13,9 +13,10 @@ import Banner from '../components/homeComponents/banner';
 import { bgColor, lightOrange } from '../utils/colors';
 import BooksCategories from '../components/homeComponents/bookCategories';
 import BestSellers from '../components/homeComponents/bestSellers';
-import NewReleases from '../components/homeComponents/newRelease';
-import FeaturedBooks from '../components/homeComponents/featuredBooks';
+import NewRelease from '../components/homeComponents/featuredBooks';
+import PopularBooks from '../components/homeComponents/newRelease';
 import WeekDeals from '../components/homeComponents/weekDeals';
+import { connect } from 'react-redux';
 
 const { width, height } = Dimensions.get('window');
 
@@ -27,15 +28,23 @@ const HomeScreen = (props) => {
         <Banner props={props} />
         <BooksCategories props={props} />
         {/* <BestSellers /> */}
-        <NewReleases props={props} />
-        <FeaturedBooks props={props} />
+        <NewRelease props={props} />
+        <PopularBooks props={props} title="Popular Books" />
         <WeekDeals props={props} />
       </ScrollView>
     </View>
   );
 };
 
-export default HomeScreen;
+const mapStateToProps = ({ popularBooks, bookCategories, newRelease }) => {
+  return {
+    popularBooks: popularBooks && Object.values(popularBooks),
+    bookCategories: bookCategories && Object.values(bookCategories),
+    newRelease: newRelease && Object.values(newRelease),
+  };
+};
+
+export default connect(mapStateToProps)(HomeScreen);
 
 const styles = StyleSheet.create({
   container: {

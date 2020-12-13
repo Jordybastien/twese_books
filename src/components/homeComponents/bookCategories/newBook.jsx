@@ -1,14 +1,31 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Dimensions,
+  TouchableOpacity,
+} from 'react-native';
 import { bgColor, fifthColor, white, secondColor } from '../../../utils/colors';
 import StarRating from 'react-native-star-rating';
 import { Feather } from '@expo/vector-icons';
+import { handleFetchCategoryBooks } from '../../../actions/genreBooks';
 
 const { width, height } = Dimensions.get('window');
 
-const BookCard = ({ title, icon, containerColor }) => {
+const BookCard = ({ title, icon, containerColor, props, id }) => {
+  const handleBookCategory = () => {
+    props
+      .dispatch(handleFetchCategoryBooks(id))
+      .then(() => props.navigation.navigate('BookCategoryScreen'));
+  };
+
   return (
-    <View style={[styles.container, { backgroundColor: containerColor }]}>
+    <TouchableOpacity
+      style={[styles.container, { backgroundColor: containerColor }]}
+      onPress={handleBookCategory}
+    >
       <View style={styles.iconHolder}>
         <Image
           source={{
@@ -21,9 +38,9 @@ const BookCard = ({ title, icon, containerColor }) => {
         </View>
       </View>
       <View>
-        <Feather name="arrow-right" size={24} color={secondColor} />
+        <Feather name="arrow-right" size={24} color={'black'} />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -81,7 +98,7 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: 'bold',
     fontSize: 20,
-    color: secondColor,
+    color: 'black',
   },
   titleContainer: {
     marginTop: 10,

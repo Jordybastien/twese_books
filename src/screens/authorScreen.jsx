@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import { AntDesign } from '@expo/vector-icons';
 import GestureRecognizer from 'react-native-swipe-gestures';
 import SingleBook from '../components/homeComponents/weekDeals/singleBook';
+import { UserProfile } from '../utils/constants';
 
 const { width, height } = Dimensions.get('window');
 
@@ -30,6 +31,7 @@ class AuthorScreen extends Component {
   };
   render() {
     const { count } = this.state;
+    const { author } = this.props;
 
     const config = {
       velocityThreshold: 0.3,
@@ -50,20 +52,21 @@ class AuthorScreen extends Component {
             {/* <> */}
             <View style={styles.imageContainer}>
               <Image
-                source={require('../../assets/book-3.png')}
+                source={{
+                  uri: `${UserProfile}${author[0][0].image_name}`,
+                }}
                 style={styles.userImage}
               />
             </View>
             <View style={styles.authorContainer}>
-              <Text style={styles.authorName}>Muhizi King</Text>
+              <Text style={styles.authorName}>{author[0][0].author_name}</Text>
             </View>
             {/* </> */}
             {/* )} */}
             {/* {count === 2 && ( */}
             <View style={styles.authorBioContainer}>
               <Text style={styles.authorBio}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                {author[0][0].author_description}
               </Text>
             </View>
             {/* )} */}
@@ -101,10 +104,9 @@ class AuthorScreen extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.lowerPart}>
-            <SingleBook props={this.props} />
-            <SingleBook props={this.props} />
-            <SingleBook props={this.props} />
-            <SingleBook props={this.props} />
+            {author[1].map((book) => (
+              <SingleBook props={this.props} book={book} />
+            ))}
           </View>
         </ScrollView>
       </View>
@@ -112,7 +114,13 @@ class AuthorScreen extends Component {
   }
 }
 
-export default connect()(AuthorScreen);
+const mapStateToProps = ({ author }) => {
+  return {
+    author: author && Object.values(author),
+  };
+};
+
+export default connect(mapStateToProps)(AuthorScreen);
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
@@ -122,7 +130,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingTop: 50,
     paddingBottom: 50,
-    height: 350,
   },
   lowerPart: {
     backgroundColor: bgColor,

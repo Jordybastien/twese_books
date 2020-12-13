@@ -28,10 +28,7 @@ const BannerComponent = ({ props }) => {
           <Text style={styles.bookTitle}>Featured book of February</Text>
         </View>
 
-        <TouchableOpacity
-          style={styles.buttonHolder}
-          onPress={() => props.navigation.navigate('SingleBookScreen')}
-        >
+        <TouchableOpacity style={styles.buttonHolder}>
           <View style={styles.buttonContainer}>
             <Text style={styles.btnLabel}>See more</Text>
           </View>
