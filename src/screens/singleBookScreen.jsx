@@ -30,6 +30,7 @@ import ReviewsText from '../components/singleBookComponents/reviewsText';
 import AddToCart from '../components/cart/addToCart';
 import { BookCover } from '../utils/constants';
 import { handleFetchAuthorInfo } from '../actions/author';
+import { addToCart, getCart } from '../utils/storage';
 
 const { width, height } = Dimensions.get('window');
 
@@ -43,6 +44,11 @@ class SingleBookScreen extends Component {
     this.props
       .dispatch(handleFetchAuthorInfo(authorId))
       .then(() => this.props.navigation.navigate('AuthorScreen'));
+  };
+  handleCart = () => {
+    addToCart(this.props.bookInfo[0]).then((res) => {
+      if (res) this.setState({ showCart: true });
+    });
   };
 
   render() {
@@ -78,7 +84,7 @@ class SingleBookScreen extends Component {
           </View>
           <TouchableOpacity
             style={styles.addToCartContainer}
-            onPress={() => this.setState({ showCart: true })}
+            onPress={this.handleCart}
           >
             <View>
               <AntDesign name="shoppingcart" size={24} color={white} />

@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import BookCard from './newBook';
 import { lightOrange, white, fifthColor } from '../../../utils/colors';
-import { ImageLink, selectColor } from '../../../utils/constants';
+import { ImageLink, selectColor, colorsPool } from '../../../utils/constants';
 
 const { width, height } = Dimensions.get('window');
 
@@ -31,7 +31,7 @@ const BooksCategories = ({ props }) => {
             <BookCard
               title={category.genre_name}
               icon={`${ImageLink}${category.genre_icon}`}
-              containerColor={selectColor()}
+              containerColor={colorsPool[index]}
               props={props}
               id={category.id}
               key={index}

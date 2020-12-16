@@ -17,6 +17,7 @@ import {
 } from '../../utils/colors';
 import { AntDesign } from '@expo/vector-icons';
 import Button from '../button';
+import { BookCover } from '../../utils/constants';
 
 const { width, height } = Dimensions.get('window');
 
@@ -25,6 +26,7 @@ const AddToCartComponent = ({ isVisible, hideModal, props }) => {
     hideModal();
     props.navigation.navigate('CartScreen');
   };
+  const { bookInfo } = props;
   return (
     <View style={styles.container}>
       <Modal
@@ -50,21 +52,23 @@ const AddToCartComponent = ({ isVisible, hideModal, props }) => {
           <View style={styles.body}>
             <View style={styles.imageHolder}>
               <Image
-                source={require('../../../assets/book-3.png')}
+                source={{
+                  uri: `${BookCover}${bookInfo[0].book_image_name}`,
+                }}
                 style={styles.bookImage}
               />
             </View>
             <View style={styles.bookInfoHolder}>
               <View>
-                <Text style={styles.bookTitle}>Institute</Text>
+                <Text style={styles.bookTitle}>{bookInfo[0].book_name}</Text>
               </View>
               <View style={styles.authorContainer}>
                 <Text style={styles.authorLabel}>By Author</Text>
-                <Text style={styles.authorValue}>Anna Banks</Text>
+                <Text style={styles.authorValue}>{bookInfo[0].name}</Text>
               </View>
             </View>
             <View style={styles.bookPriceHolder}>
-              <Text style={styles.price}>$ 29.95</Text>
+              <Text style={styles.price}>$ {bookInfo[0].book_price}</Text>
             </View>
           </View>
           <View style={styles.footer}>
@@ -126,11 +130,11 @@ const styles = StyleSheet.create({
   },
   authorLabel: {
     color: gray,
-    fontFamily: 'bold',
+    fontFamily: 'regular',
   },
   authorValue: {
     color: gray,
-    fontFamily: 'regular',
+    fontFamily: 'bold',
   },
   authorContainer: {
     flexDirection: 'row',
