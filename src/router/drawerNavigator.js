@@ -1,16 +1,12 @@
 import React from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import TabNavigator from './tabNavigator';
+import DrawerContent from '../components/drawerContent';
 
 const Drawer = createDrawerNavigator();
 
 const DrawerNavigatorConfig = {
   drawerType: 'front',
-  drawerStyle: {
-    // backgroundColor: 'red',
-    // justifyContent: 'center',
-    // alignItems: 'center',
-  },
 };
 
 const DrawerConfig = {
@@ -18,15 +14,18 @@ const DrawerConfig = {
     name: 'Home',
     component: TabNavigator,
     options: {},
-    style:{
-      backgroundColor:'red'
-    }
+    style: {
+      backgroundColor: 'red',
+    },
   },
 };
 
 const DrawerNavigator = () => {
   return (
-    <Drawer.Navigator {...DrawerNavigatorConfig}>
+    <Drawer.Navigator
+      {...DrawerNavigatorConfig}
+      drawerContent={(props) => <DrawerContent {...props} />}
+    >
       <Drawer.Screen {...DrawerConfig['Home']} />
     </Drawer.Navigator>
   );

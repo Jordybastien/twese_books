@@ -30,8 +30,8 @@ const WeekDeals = ({ props }) => {
         showsHorizontalScrollIndicator={false}
         style={{ flexDirection: 'row', paddingLeft: 20 }}
       >
-        {popularBooks.map((book) => (
-          <SingleBook props={props} book={book} />
+        {popularBooks.map((book, index) => (
+          <SingleBook key={index} props={props} book={book} />
         ))}
       </ScrollView>
     </View>

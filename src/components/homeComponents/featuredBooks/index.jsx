@@ -30,8 +30,8 @@ const NewRelease = ({ props }) => {
         showsHorizontalScrollIndicator={false}
         style={{ flexDirection: 'row', paddingLeft: 20 }}
       >
-        {newRelease.map((book) => (
-          <SingleBook props={props} book={book} />
+        {newRelease.map((book, index) => (
+          <SingleBook key={index} props={props} book={book} />
         ))}
       </ScrollView>
     </View>

@@ -11,3 +11,4 @@ export const lightBlue = '#0c1e4536';
 export const lightOrange = '#EADBD2';
 export const transparentWhite = '#ffffff57';
 export const orange = '#de763f';
+export const lowLightBlue = '#0c1e45a1';
