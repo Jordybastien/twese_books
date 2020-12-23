@@ -11,14 +11,13 @@ import { Spinner } from 'native-base';
 
 const { width, height } = Dimensions.get('window');
 
-const Button = ({ label, toExecuteOnClick }) => {
-  const [loading, setLoading] = useState(false);
+const Button = ({ label, toExecuteOnClick, loading }) => {
   return (
     <View style={styles.btnContainer}>
       <TouchableOpacity style={styles.buttonHolder} onPress={toExecuteOnClick}>
         <View style={styles.buttonContainer}>
           {loading ? (
-            <Spinner color={blue} />
+            <Spinner color={white} />
           ) : (
             <Text style={styles.btnLabel}>{label}</Text>
           )}
@@ -47,6 +46,12 @@ const styles = StyleSheet.create({
     width: width - 100,
     height: 60,
     borderRadius: 5,
+  },
+  buttonHolderLoading: {
+    backgroundColor: fifthColor,
+    width: 60,
+    height: 60,
+    borderRadius: 50,
   },
   buttonContainer: {
     flex: 1,

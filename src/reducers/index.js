@@ -7,6 +7,8 @@ import bookInfo from './bookInfo';
 import genreBooks from './genreBooks';
 import newRelease from './newReleases';
 import popularBooks from './popularBooks';
+import authedUser from './authedUser';
+import dashboardStats from './dashboardStats';
 
 export default combineReducers({
   loading,
@@ -17,4 +19,6 @@ export default combineReducers({
   genreBooks,
   newRelease,
   popularBooks,
+  authedUser,
+  dashboardStats,
 });

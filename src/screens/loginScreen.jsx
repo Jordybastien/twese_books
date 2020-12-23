@@ -9,14 +9,88 @@ import {
   Image,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { fifthColor, bgColor, white, lowGray,lightOrange } from '../utils/colors';
+import {
+  fifthColor,
+  bgColor,
+  white,
+  lowGray,
+  lightOrange,
+} from '../utils/colors';
 import TextBox from '../components/textBox';
 import Button from '../components/button';
+import { handleUserLogin } from '../actions/authedUser';
+import Toast from 'react-native-toast-message';
+import { Spinner } from 'native-base';
 
 const { width, height } = Dimensions.get('window');
 
 class LoginScreen extends Component {
+  state = {
+    email: '',
+    password: '',
+    loading: false,
+    errors: {
+      email: '',
+      password: '',
+    },
+  };
+
+  handleLogin = () => {
+    const { response, data } = this.validateData();
+    if (response) {
+      this.setState({ loading: true });
+      this.props.dispatch(handleUserLogin(data)).then((res) => {
+        this.setState({ loading: false });
+        if (res.type !== 'LOG_ERROR') {
+          this.props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'HomeScreen' }],
+          });
+        } else
+          Toast.show({
+            text1: 'Warning',
+            text2: res.error,
+            type: 'error',
+          });
+      });
+    }
+  };
+
+  validateData = () => {
+    const { password, email } = this.state;
+
+    let response = true;
+    let errorMessage = '';
+
+    if (!password) {
+      response = false;
+      errorMessage = 'Password is required';
+    }
+
+    if (!email) {
+      response = false;
+      errorMessage = 'Email is required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(email)) {
+      response = false;
+      errorMessage = 'Email is invalid';
+    }
+
+    let data = {};
+
+    data.email = email;
+    data.password = password;
+
+    errorMessage &&
+      Toast.show({
+        text1: 'Warning',
+        text2: errorMessage,
+        type: 'error',
+      });
+    return { response, data };
+  };
+
   render() {
+    const { email, password, loading } = this.state;
     return (
       <View style={styles.container}>
         <View>
@@ -29,15 +103,33 @@ class LoginScreen extends Component {
           <Text style={styles.title}>Login</Text>
         </View>
         <View style={styles.formContainer}>
-          <TextBox name="email" label="Email" passProtected={false} multiline={false}/>
-          <TextBox name="password" label="Password" passProtected={true} multiline={false}/>
+          <TextBox
+            name="email"
+            label="Email"
+            passProtected={false}
+            multiline={false}
+            value={email}
+            onChangeText={(email) => this.setState({ email })}
+          />
+          <TextBox
+            name="password"
+            label="Password"
+            passProtected={true}
+            multiline={false}
+            value={password}
+            onChangeText={(password) => this.setState({ password })}
+          />
           <View style={styles.forgotCont}>
             <TouchableOpacity>
               <Text style={styles.forgotLabel}>Forgot Password?</Text>
             </TouchableOpacity>
           </View>
 
-          <Button label="Login" />
+          <Button
+            label="Login"
+            loading={loading}
+            toExecuteOnClick={this.handleLogin}
+          />
         </View>
         <View style={styles.loginContainer}>
           <View style={styles.orContainer}>

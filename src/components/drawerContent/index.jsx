@@ -26,16 +26,33 @@ import {
   SimpleLineIcons,
   FontAwesome5,
 } from '@expo/vector-icons';
+import { connect } from 'react-redux';
+import { deleteToken, deleteUserInfo } from '../../utils/storage';
+import { logoutUser } from '../../actions/authedUser';
 
 const { width, height } = Dimensions.get('window');
+
 const DrawerContent = (props) => {
+  const { dashboardStats, userName } = props;
+
+  const handleLogout = () => {
+    deleteToken().then(() => {
+      deleteUserInfo();
+      props.dispatch(logoutUser());
+      props.navigation.reset({
+        index: 0,
+        routes: [{ name: 'LoginScreen' }],
+      });
+    });
+  };
+
   return (
     <View style={styles.container}>
       <DrawerContentScrollView {...props}>
         <View style={styles.header}>
           <View style={styles.headerProfileHolder}>
             <View style={styles.userNameHolder}>
-              <Text style={styles.userName}>John Doe</Text>
+              <Text style={styles.userName}>{userName}</Text>
             </View>
             <View style={styles.imageHolder}>
               <Image
@@ -54,7 +71,9 @@ const DrawerContent = (props) => {
                 <Feather name="shopping-bag" size={24} color={gray} />
               </View>
               <View>
-                <Text style={styles.drawerItemLabel}>My Orders</Text>
+                <Text style={styles.drawerItemLabel}>
+                  My Orders ({dashboardStats.order})
+                </Text>
               </View>
             </View>
             <View style={styles.rightPart}>
@@ -69,7 +88,9 @@ const DrawerContent = (props) => {
                 <Feather name="book" size={24} color={gray} />
               </View>
               <View>
-                <Text style={styles.drawerItemLabel}>My Books</Text>
+                <Text style={styles.drawerItemLabel}>
+                  My Books ({dashboardStats.books})
+                </Text>
               </View>
             </View>
             <View style={styles.rightPart}>
@@ -84,7 +105,9 @@ const DrawerContent = (props) => {
                 <FontAwesome5 name="address-book" size={24} color={gray} />
               </View>
               <View>
-                <Text style={styles.drawerItemLabel}>My Address</Text>
+                <Text style={styles.drawerItemLabel}>
+                  My Address ({dashboardStats.address})
+                </Text>
               </View>
             </View>
             <View style={styles.rightPart}>
@@ -108,6 +131,7 @@ const DrawerContent = (props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.singleDrawerItem, styles.logoutContainer]}
+            onPress={() => handleLogout()}
           >
             <View style={styles.leftPart}>
               <View style={styles.drawerItemIconHolder}>
@@ -127,7 +151,14 @@ const DrawerContent = (props) => {
   );
 };
 
-export default DrawerContent;
+const mapStateToProps = ({ dashboardStats, authedUser }) => {
+  return {
+    dashboardStats,
+    userName: authedUser.name ?? 'Login',
+  };
+};
+
+export default connect(mapStateToProps)(DrawerContent);
 
 const styles = StyleSheet.create({
   container: {
@@ -172,6 +203,7 @@ const styles = StyleSheet.create({
     color: white,
     fontFamily: 'bold',
     fontSize: 20,
+    textAlign: 'center',
   },
   singleDrawerItem: {
     flexDirection: 'row',

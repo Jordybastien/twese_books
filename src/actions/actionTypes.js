@@ -1,3 +1,7 @@
+// Authentication
+export const SET_AUTHED_USER = 'SET_AUTHED_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
+
 // Loading
 export const LOADING = 'LOADING';
 export const NOT_LOADING = 'NOT_LOADING';
@@ -16,3 +20,5 @@ export const FETCH_POPULAR_BOOKS = 'FETCH_POPULAR_BOOKS';
 export const FETCH_BOOK_INFO = 'FETCH_BOOK_INFO';
 
 export const FETCH_AUTHOR = 'FETCH_AUTHOR';
+
+export const FETCH_DASHBOARD_STATS = 'FETCH_DASHBOARD_STATS';

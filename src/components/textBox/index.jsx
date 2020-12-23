@@ -4,13 +4,10 @@ import { fifthColor, gray, white, lowGray } from '../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-const TextBox = ({ name, label, passProtected, multiline }) => {
+const TextBox = ({ name, label, passProtected, multiline, onChangeText }) => {
   const [focused, setFocused] = useState(false);
   return (
     <View style={styles.container}>
-      {/* <View style={styles.titleContainer}>
-        <Text style={styles.title}>First Name</Text>
-      </View> */}
       <TextInput
         style={[styles.txtBox, focused && styles.focusedTxt]}
         placeholder={label}
@@ -20,6 +17,7 @@ const TextBox = ({ name, label, passProtected, multiline }) => {
         multiline={multiline}
         height={multiline ? 100 : 50}
         secureTextEntry={passProtected}
+        onChangeText={onChangeText}
       />
     </View>
   );

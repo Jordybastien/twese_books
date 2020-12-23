@@ -15,9 +15,9 @@ import { white, fifthColor, firstColor } from '../utils/colors';
 import * as Animatable from 'react-native-animatable';
 import { Grid } from 'react-native-animated-spinkit';
 import { connect } from 'react-redux';
-// import { checkToken } from '../services/auth';
-// import { deleteToken } from '../utils/storage';
-// import { setAuthedUser } from '../actions/authedUser';
+import { checkToken } from '../services/auth';
+import { deleteToken, deleteUserInfo } from '../utils/storage';
+import { setAuthedUser } from '../actions/authedUser';
 
 const { width, height } = Dimensions.get('window');
 
@@ -37,8 +37,30 @@ const SplashScreen = (props) => {
     }, 3000);
 
     let timer2 = setTimeout(async () => {
-      // redirect to homescreen
-      props.navigation.navigate('HomeScreen');
+      const { token, user } = await checkToken();
+
+      if (token && user) {
+        const currentTime = Date.now() / 1000;
+        if (token.exp < currentTime) {
+          await deleteToken();
+          await deleteUserInfo();
+          props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'LoginScreen' }],
+          });
+        } else {
+          props.dispatch(setAuthedUser(user));
+          props.navigation.reset({
+            index: 0,
+            routes: [{ name: 'HomeScreen' }],
+          });
+        }
+      } else {
+        props.navigation.reset({
+          index: 0,
+          routes: [{ name: 'LoginScreen' }],
+        });
+      }
     }, 8000);
     return () => {
       clearTimeout(timer1);

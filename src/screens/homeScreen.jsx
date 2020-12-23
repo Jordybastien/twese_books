@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import {
   View,
   Text,
@@ -17,24 +17,35 @@ import NewRelease from '../components/homeComponents/featuredBooks';
 import PopularBooks from '../components/homeComponents/newRelease';
 import WeekDeals from '../components/homeComponents/weekDeals';
 import { connect } from 'react-redux';
+import { refreshUser } from '../router';
+import { handleAuthedData } from '../actions/initialData';
 
 const { width, height } = Dimensions.get('window');
 
-const HomeScreen = (props) => {
-  return (
-    <View style={styles.container}>
-      <Header props={props} />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Banner props={props} />
-        <BooksCategories props={props} />
-        {/* <BestSellers /> */}
-        <NewRelease props={props} />
-        <PopularBooks props={props} title="Popular Books" />
-        <WeekDeals props={props} />
-      </ScrollView>
-    </View>
-  );
-};
+class HomeScreen extends Component {
+  componentDidMount() {
+    refreshUser(this.props).then((user) => {
+      if (user) {
+        this.props.dispatch(handleAuthedData(user.id));
+      }
+    });
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Header props={this.props} />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Banner props={this.props} />
+          <BooksCategories props={this.props} />
+          {/* <BestSellers /> */}
+          <NewRelease props={this.props} />
+          <PopularBooks props={this.props} title="Popular Books" />
+          <WeekDeals props={this.props} />
+        </ScrollView>
+      </View>
+    );
+  }
+}
 
 const mapStateToProps = ({ popularBooks, bookCategories, newRelease }) => {
   return {
