@@ -9,6 +9,10 @@ import newRelease from './newReleases';
 import popularBooks from './popularBooks';
 import authedUser from './authedUser';
 import dashboardStats from './dashboardStats';
+import countries from './countries';
+import userOrders from './userOrders';
+import userBooks from './userBooks';
+import userAddresses from './userAddresses';
 
 export default combineReducers({
   loading,
@@ -21,4 +25,8 @@ export default combineReducers({
   popularBooks,
   authedUser,
   dashboardStats,
+  countries,
+  userOrders,
+  userBooks,
+  userAddresses,
 });

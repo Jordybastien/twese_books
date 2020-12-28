@@ -11,6 +11,8 @@ import CartScreen from '../screens/cartScreen';
 import FilterScreen from '../screens/filterScreen';
 import { blue, white } from '../utils/colors';
 import BookCategoryScreen from '../screens/bookCategoryScreen';
+import AccountDetailsScreen from '../screens/accountDetailsScreen';
+import UserBooksScreen from '../screens/userBooksScreen';
 
 const StackNavigatorConfig = {
   headerMode: 'screen',
@@ -61,6 +63,16 @@ const StackConfig = {
     component: BookCategoryScreen,
     options: { headerShown: false },
   },
+  AccountDetailsScreen: {
+    name: 'AccountDetailsScreen',
+    component: AccountDetailsScreen,
+    options: { headerShown: false },
+  },
+  UserBooksScreen: {
+    name: 'UserBooksScreen',
+    component: UserBooksScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -76,6 +88,8 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['CartScreen']} />
       <Stack.Screen {...StackConfig['FilterScreen']} />
       <Stack.Screen {...StackConfig['BookCategoryScreen']} />
+      <Stack.Screen {...StackConfig['AccountDetailsScreen']} />
+      <Stack.Screen {...StackConfig['UserBooksScreen']} />
     </Stack.Navigator>
   );
 };

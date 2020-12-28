@@ -48,7 +48,7 @@ class AccountScreen extends Component {
   };
 
   render() {
-    const { dashboardStats, userName } = this.props;
+    const { dashboardStats, userName, isAuth } = this.props;
 
     return (
       <View style={styles.container}>
@@ -69,6 +69,26 @@ class AccountScreen extends Component {
           <View style={styles.body}>
             <TouchableOpacity
               style={[styles.singleDrawerItem, styles.borderBottomHere]}
+              onPress={() =>
+                isAuth
+                  ? this.props.navigation.navigate('AccountDetailsScreen')
+                  : this.props.navigation.navigate('LoginScreen')
+              }
+            >
+              <View style={styles.leftPart}>
+                <View style={styles.drawerItemIconHolder}>
+                  <Feather name="user" size={24} color={gray} />
+                </View>
+                <View>
+                  <Text style={styles.drawerItemLabel}>Account Details</Text>
+                </View>
+              </View>
+              <View style={styles.rightPart}>
+                <MaterialIcons name="navigate-next" size={24} color={gray} />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.singleDrawerItem, styles.borderBottomHere]}
             >
               <View style={styles.leftPart}>
                 <View style={styles.drawerItemIconHolder}>
@@ -86,6 +106,11 @@ class AccountScreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.singleDrawerItem, styles.borderBottomHere]}
+              onPress={() =>
+                isAuth
+                  ? this.props.navigation.navigate('UserBooksScreen')
+                  : this.props.navigation.navigate('LoginScreen')
+              }
             >
               <View style={styles.leftPart}>
                 <View style={styles.drawerItemIconHolder}>
@@ -160,6 +185,7 @@ const mapStateToProps = ({ dashboardStats, authedUser }) => {
   return {
     dashboardStats,
     userName: authedUser.name ?? 'Login',
+    isAuth: Object.keys(authedUser).length !== 0,
   };
 };
 

@@ -30,7 +30,9 @@ class CartScreen extends Component {
   };
 
   componentDidMount() {
-    getCart().then((cartItems) => this.setState({ cartItems }));
+    getCart().then((cartItems) => {
+      cartItems && this.setState({ cartItems });
+    });
   }
 
   handleRemoveFromCart = (bookId) => {
@@ -46,10 +48,9 @@ class CartScreen extends Component {
 
   render() {
     const { cartItems } = this.state;
-    const totalPrice = cartItems.reduce(
-      (total, item) => total + parseInt(item.book_price),
-      0
-    );
+    const totalPrice = cartItems
+      ? cartItems.reduce((total, item) => total + parseInt(item.book_price), 0)
+      : 0;
 
     return (
       <View style={styles.container}>
@@ -64,7 +65,7 @@ class CartScreen extends Component {
           </View>
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
-          {cartItems.length !== 0 ? (
+          {cartItems && cartItems.length !== 0 ? (
             cartItems.map((item) => (
               <View style={styles.body}>
                 <View style={styles.imageHolder}>
@@ -273,6 +274,6 @@ const styles = StyleSheet.create({
   emptyLabel: {
     fontFamily: 'bold',
     fontSize: 17,
-    color: fifthColor,
+    color: gray,
   },
 });

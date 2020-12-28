@@ -13,8 +13,8 @@ import { fifthColor, white } from '../../utils/colors';
 
 const { width, height } = Dimensions.get('window');
 
-const BookCategories = ({ props, title }) => {
-  const { genreBooks, bookCategories } = props;
+const UserBooksComponent = ({ props, title }) => {
+  const { userBooks, bookCategories } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -23,18 +23,15 @@ const BookCategories = ({ props, title }) => {
             <Text style={styles.headerTitle}>{title}</Text>
           </View>
         )}
-        {/* <TouchableOpacity>
-          <Feather name="arrow-right" size={24} color={fifthColor} />
-        </TouchableOpacity> */}
       </View>
-      {genreBooks.map((book, index) => (
+      {userBooks.map((book, index) => (
         <SingleBook key={index} props={props} book={book} />
       ))}
     </View>
   );
 };
 
-export default BookCategories;
+export default UserBooksComponent;
 
 const styles = StyleSheet.create({
   container: {

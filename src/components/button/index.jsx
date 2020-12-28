@@ -11,9 +11,9 @@ import { Spinner } from 'native-base';
 
 const { width, height } = Dimensions.get('window');
 
-const Button = ({ label, toExecuteOnClick, loading }) => {
+const Button = ({ label, toExecuteOnClick, loading, presetStyle }) => {
   return (
-    <View style={styles.btnContainer}>
+    <View style={[styles.btnContainer, presetStyle]}>
       <TouchableOpacity style={styles.buttonHolder} onPress={toExecuteOnClick}>
         <View style={styles.buttonContainer}>
           {loading ? (

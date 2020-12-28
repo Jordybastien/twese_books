@@ -33,7 +33,7 @@ import { logoutUser } from '../../actions/authedUser';
 const { width, height } = Dimensions.get('window');
 
 const DrawerContent = (props) => {
-  const { dashboardStats, userName } = props;
+  const { dashboardStats, userName, isAuth } = props;
 
   const handleLogout = () => {
     deleteToken().then(() => {
@@ -65,6 +65,26 @@ const DrawerContent = (props) => {
         <View style={styles.body}>
           <TouchableOpacity
             style={[styles.singleDrawerItem, styles.borderBottomHere]}
+            onPress={() =>
+              isAuth
+                ? props.navigation.navigate('AccountDetailsScreen')
+                : props.navigation.navigate('LoginScreen')
+            }
+          >
+            <View style={styles.leftPart}>
+              <View style={styles.drawerItemIconHolder}>
+                <Feather name="user" size={24} color={gray} />
+              </View>
+              <View>
+                <Text style={styles.drawerItemLabel}>Account Details</Text>
+              </View>
+            </View>
+            <View style={styles.rightPart}>
+              <MaterialIcons name="navigate-next" size={24} color={gray} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.singleDrawerItem, styles.borderBottomHere]}
           >
             <View style={styles.leftPart}>
               <View style={styles.drawerItemIconHolder}>
@@ -82,6 +102,11 @@ const DrawerContent = (props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.singleDrawerItem, styles.borderBottomHere]}
+            onPress={() =>
+              isAuth
+                ? props.navigation.navigate('UserBooksScreen')
+                : props.navigation.navigate('UserBooksScreen')
+            }
           >
             <View style={styles.leftPart}>
               <View style={styles.drawerItemIconHolder}>
@@ -155,6 +180,7 @@ const mapStateToProps = ({ dashboardStats, authedUser }) => {
   return {
     dashboardStats,
     userName: authedUser.name ?? 'Login',
+    isAuth: Object.keys(authedUser).length !== 0,
   };
 };
 

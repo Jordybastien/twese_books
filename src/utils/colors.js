@@ -12,3 +12,4 @@ export const lightOrange = '#EADBD2';
 export const transparentWhite = '#ffffff57';
 export const orange = '#de763f';
 export const lowLightBlue = '#0c1e45a1';
+export const txtBoxText = '#b2a6a2';

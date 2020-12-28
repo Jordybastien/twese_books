@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import {
   bgColor,
@@ -28,14 +29,25 @@ const findBookCategory = (bookCategories, catId) => {
 };
 
 const BookCard = ({ props, book }) => {
+  console.log('======>book', book);
   const { bookCategories } = props;
   const handleBookInfo = () => {
     props
       .dispatch(handleFetchBookInfo(book.id))
       .then(() => props.navigation.navigate('SingleBookScreen'));
   };
+
+  const handleClick = () => {
+    Linking.canOpenURL('http://157.230.237.163/BookFile/651243351.pdf').then(
+      (supported) => {
+        supported &&
+          Linking.openURL('http://157.230.237.163/BookFile/651243351.pdf');
+      }
+    );
+  };
+
   return (
-    <TouchableOpacity style={styles.container} onPress={handleBookInfo}>
+    <TouchableOpacity style={styles.container} onPress={handleClick}>
       <View style={styles.bookContainer}>
         <View style={styles.imgContainer}>
           <Image
@@ -58,9 +70,6 @@ const BookCard = ({ props, book }) => {
             </Text>
           </View>
         </View>
-        {/* <TouchableOpacity style={styles.dotsContainer}>
-          <Entypo name="dots-three-horizontal" size={24} color={lowGray} />
-        </TouchableOpacity> */}
       </View>
     </TouchableOpacity>
   );
@@ -88,6 +97,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: width - 100,
     justifyContent: 'space-between',
+    flex: 1,
   },
   bookImg: {
     width: width / 5,
@@ -109,7 +119,6 @@ const styles = StyleSheet.create({
     color: fifthColor,
     fontFamily: 'bold',
     fontSize: 16,
-    // width: 150,
   },
   bookAuthor: {
     color: gray,
@@ -118,6 +127,7 @@ const styles = StyleSheet.create({
   },
   detailsContainer: {
     flex: 2,
+    marginLeft: 10,
   },
   dotsContainer: {
     alignSelf: 'flex-start',
