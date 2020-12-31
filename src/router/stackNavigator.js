@@ -13,6 +13,10 @@ import { blue, white } from '../utils/colors';
 import BookCategoryScreen from '../screens/bookCategoryScreen';
 import AccountDetailsScreen from '../screens/accountDetailsScreen';
 import UserBooksScreen from '../screens/userBooksScreen';
+import ReadingBookScreen from '../screens/readingBookScreen';
+import OrdersScreen from '../screens/userOrdersScreen';
+import UserAddressesScreen from '../screens/userAddressesScreen';
+import AddAddressScreen from '../screens/addAddressScreen';
 
 const StackNavigatorConfig = {
   headerMode: 'screen',
@@ -73,6 +77,26 @@ const StackConfig = {
     component: UserBooksScreen,
     options: { headerShown: false },
   },
+  ReadingBookScreen: {
+    name: 'ReadingBookScreen',
+    component: ReadingBookScreen,
+    options: { headerShown: false },
+  },
+  OrdersScreen: {
+    name: 'OrdersScreen',
+    component: OrdersScreen,
+    options: { headerShown: false },
+  },
+  UserAddressesScreen: {
+    name: 'UserAddressesScreen',
+    component: UserAddressesScreen,
+    options: { headerShown: false },
+  },
+  AddAddressScreen: {
+    name: 'AddAddressScreen',
+    component: AddAddressScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -90,6 +114,10 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['BookCategoryScreen']} />
       <Stack.Screen {...StackConfig['AccountDetailsScreen']} />
       <Stack.Screen {...StackConfig['UserBooksScreen']} />
+      <Stack.Screen {...StackConfig['ReadingBookScreen']} />
+      <Stack.Screen {...StackConfig['OrdersScreen']} />
+      <Stack.Screen {...StackConfig['UserAddressesScreen']} />
+      <Stack.Screen {...StackConfig['AddAddressScreen']} />
     </Stack.Navigator>
   );
 };

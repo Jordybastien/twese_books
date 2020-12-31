@@ -16,58 +16,29 @@ import {
   lowGray,
   gray,
 } from '../../utils/colors';
-import StarRating from 'react-native-star-rating';
-import { Entypo } from '@expo/vector-icons';
-import { BookCover } from '../../utils/constants';
-import { handleFetchBookInfo } from '../../actions/bookInfo';
+import moment from 'moment';
 
 const { width, height } = Dimensions.get('window');
 
-const findBookCategory = (bookCategories, catId) => {
-  const category = bookCategories.filter((book) => book.id == catId);
-  return category.length !== 0 && category[0].genre_name;
-};
-
 const BookCard = ({ props, book }) => {
-  const { bookCategories } = props;
-  const handleBookInfo = () => {
-    props
-      .dispatch(handleFetchBookInfo(book.id))
-      .then(() => props.navigation.navigate('SingleBookScreen'));
-  };
-
-  const handleClick = () => {
-    props.navigation.navigate('ReadingBookScreen');
-  };
+//   console.log('=====>1', book.BookOrdered.split(','));
+//   console.log('=====>2', book.BookOrdered.split(',')[0]);
 
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() =>
-        props.navigation.navigate('ReadingBookScreen', {
-          book,
-        })
-      }
-    >
+    <TouchableOpacity style={styles.container}>
       <View style={styles.bookContainer}>
-        <View style={styles.imgContainer}>
-          <Image
-            source={{
-              uri: `${BookCover}${book.book_image_name}`,
-            }}
-            style={styles.bookImg}
-          />
-        </View>
         <View style={styles.detailsContainer}>
           <View>
-            <Text style={styles.bookTitle}>{book.book_name}</Text>
+            <Text style={styles.bookTitle}>{book.BookOrdered}</Text>
           </View>
-          <View>
-            <Text style={styles.bookAuthor}>{book.name}</Text>
+          <View style={{ marginTop: 10 }}>
+            <Text style={styles.bookAuthor}>
+              {moment(book.created_at).format('MMM Do YY')}
+            </Text>
           </View>
           <View style={styles.tag}>
             <Text style={styles.tagLabel}>
-              {findBookCategory(bookCategories, book.book_category)}
+              {book.amount} {book.currency}
             </Text>
           </View>
         </View>
@@ -124,7 +95,7 @@ const styles = StyleSheet.create({
   bookAuthor: {
     color: gray,
     fontFamily: 'regular',
-    fontSize: 12,
+    fontSize: 13,
   },
   detailsContainer: {
     flex: 2,
@@ -138,15 +109,15 @@ const styles = StyleSheet.create({
   tag: {
     marginTop: 15,
     backgroundColor: fifthColor,
-    width: 70,
-    height: 20,
+    width: 120,
+    height: 30,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   tagLabel: {
     fontFamily: 'regular',
-    fontSize: 10,
+    fontSize: 15,
     color: white,
   },
 });

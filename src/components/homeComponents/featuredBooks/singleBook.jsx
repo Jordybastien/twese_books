@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     fontFamily: 'bold',
     color: fifthColor,
     fontSize: 15,
+    width: width / 3,
   },
   bookAuthor: {
     fontSize: 12,

@@ -89,6 +89,11 @@ class AccountScreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.singleDrawerItem, styles.borderBottomHere]}
+              onPress={() =>
+                isAuth
+                  ? this.props.navigation.navigate('OrdersScreen')
+                  : this.props.navigation.navigate('LoginScreen')
+              }
             >
               <View style={styles.leftPart}>
                 <View style={styles.drawerItemIconHolder}>
@@ -128,6 +133,11 @@ class AccountScreen extends Component {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.singleDrawerItem, styles.borderBottomHere]}
+              onPress={() =>
+                isAuth
+                  ? this.props.navigation.navigate('UserAddressesScreen')
+                  : this.props.navigation.navigate('LoginScreen')
+              }
             >
               <View style={styles.leftPart}>
                 <View style={styles.drawerItemIconHolder}>

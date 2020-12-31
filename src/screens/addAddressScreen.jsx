@@ -1,86 +1,72 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   View,
   Text,
   StyleSheet,
-  Dimensions,
-  ScrollView,
   TouchableOpacity,
+  ScrollView,
+  Dimensions,
 } from 'react-native';
-import { connect } from 'react-redux';
-import {
-  bgColor,
-  fifthColor,
-  firstColor,
-  secondColor,
-  white,
-  gray,
-  lowGray,
-  lightOrange,
-  txtBoxText,
-} from '../utils/colors';
-import Toast from 'react-native-toast-message';
+import { lightOrange, fifthColor, lowGray, txtBoxText } from '../utils/colors';
+import { AntDesign } from '@expo/vector-icons';
 import { Spinner } from 'native-base';
 import TextBox from '../components/textBox';
 import Button from '../components/button';
 import SectionedMultiSelect from 'react-native-sectioned-multi-select';
-import { CheckBox } from 'react-native-elements';
-import { AntDesign } from '@expo/vector-icons';
-import { handleUserUpdate } from '../actions/authedUser';
-import { genders } from '../utils/constants';
+import { handleNewAddress } from '../actions/userAddresses';
+import Toast from 'react-native-toast-message';
 
 const { width, height } = Dimensions.get('window');
 
-class AccountDetailsScreen extends Component {
+class AddAddressScreen extends Component {
   state = {
-    name: this.props.authedUser?.name ?? '',
-    email: this.props.authedUser?.email ?? '',
-    phoneNumber: this.props.authedUser?.phone_number ?? '',
-    gender: '',
-    age: this.props.authedUser?.age ?? '',
     loading: false,
+    firstName: '',
+    lastName: '',
+    email: '',
+    companyName: '',
+    streetAddress: '',
+    townCity: '',
+    postCode: '',
+    phoneNumber: '',
     selCountry: '',
-    selGender: '',
-    selectedCountryName: '',
+    selectedCountries: [],
     errors: {
-      name: '',
+      firstName: '',
+      lastName: '',
       email: '',
+      companyName: '',
+      streetAddress: '',
+      townCity: '',
+      postCode: '',
       phoneNumber: '',
-      gender: '',
-      age: '',
       selCountry: '',
     },
-    selectedCountries: [parseInt(this.props.authedUser?.country_id)],
-    selectedGender: [this.props.authedUser?.gender],
   };
+
   handleCountry = (country) => {
-    const { newCountries } = this.props;
     this.setState({
       selectedCountries: country,
       selCountry: country[0],
-      selectedCountryName: newCountries[country[0] - 1].name,
     });
   };
 
-  handleGender = (gender) => {
-    this.setState({
-      selectedGender: gender,
-      selGender: gender[0],
-    });
-  };
-
-  handleUpdateUserDetails = () => {
+  handleAddAddress = () => {
     const { response, data } = this.validateData();
     if (response) {
       this.setState({ loading: true });
-      this.props.dispatch(handleUserUpdate(data)).then((res) => {
+      this.props.dispatch(handleNewAddress(data)).then((res) => {
         this.setState({ loading: false });
         if (res.type !== 'LOG_ERROR') {
           Toast.show({
             text1: 'Success',
-            text2: 'Changes Updated Successfully',
+            text2: 'Address Added',
             type: 'success',
           });
+          setTimeout(() => {
+            this.props.navigation.navigate('UserAddressesScreen');
+          }, 500);
         } else
           Toast.show({
             text1: 'Warning',
@@ -93,22 +79,43 @@ class AccountDetailsScreen extends Component {
 
   validateData = () => {
     const {
-      name,
+      firstName,
+      lastName,
       email,
+      companyName,
+      streetAddress,
+      townCity,
+      postCode,
       phoneNumber,
-      age,
+      selCountry,
       selectedCountries,
-      selectedGender,
     } = this.state;
 
     let response = true;
     let errorMessage = '';
 
-    if (!age) {
+    // validate
+    if (!postCode) {
       response = false;
-      errorMessage = 'Age is required';
+      errorMessage = 'Post Code is required';
     }
 
+    if (!streetAddress) {
+      response = false;
+      errorMessage = 'Street Address is required';
+    }
+    if (!townCity) {
+      response = false;
+      errorMessage = 'Town/City is required';
+    }
+    if (!selCountry) {
+      response = false;
+      errorMessage = 'Country is required';
+    }
+    if (!companyName) {
+      response = false;
+      errorMessage = 'Company Name is required';
+    }
     if (!phoneNumber) {
       response = false;
       errorMessage = 'Phone Number is required';
@@ -116,7 +123,6 @@ class AccountDetailsScreen extends Component {
       response = false;
       errorMessage = 'Phone Number can not be less than or more than 10 digits';
     }
-
     if (!email) {
       response = false;
       errorMessage = 'Email is required';
@@ -125,20 +131,29 @@ class AccountDetailsScreen extends Component {
       errorMessage = 'Email is invalid';
     }
 
-    if (!name) {
+    if (!lastName) {
       response = false;
-      errorMessage = 'Name is required';
+      errorMessage = 'Last Name is required';
     }
+
+    if (!firstName) {
+      response = false;
+      errorMessage = 'First Name is required';
+    }
+    // validating ends here
 
     let data = {};
 
+    data.user_id = this.props.authedUser.id;
+    data.first_name = firstName;
+    data.last_name = lastName;
     data.email = email;
     data.phone_number = phoneNumber;
-    data.name = name;
-    data.age = age;
+    data.company_name = companyName;
     data.country_id = selectedCountries[0];
-    data.gender = selectedGender[0];
-    data.user_id = this.props.authedUser.id;
+    data.street_address_house_number = streetAddress;
+    data.town_city = townCity;
+    data.post_code = postCode;
 
     errorMessage &&
       Toast.show({
@@ -151,14 +166,20 @@ class AccountDetailsScreen extends Component {
 
   render() {
     const {
-      name,
+      firstName,
+      lastName,
       email,
-      loading,
+      companyName,
+      streetAddress,
+      townCity,
+      postCode,
       phoneNumber,
-      age,
+      selCountry,
       selectedCountries,
-      selectedGender,
+      errors,
+      loading,
     } = this.state;
+
     const { newCountries } = this.props;
 
     return (
@@ -170,7 +191,7 @@ class AccountDetailsScreen extends Component {
             </TouchableOpacity>
           </View>
           <View style={styles.headerTitleContainer}>
-            <Text style={styles.headerTitle}>Account Details</Text>
+            <Text style={styles.headerTitle}>Add Address</Text>
           </View>
         </View>
         <ScrollView
@@ -179,12 +200,20 @@ class AccountDetailsScreen extends Component {
         >
           <View style={styles.formContainer}>
             <TextBox
-              name="name"
-              label="Name"
+              name="firstName"
+              label="First Name"
               passProtected={false}
               multiline={false}
-              value={name}
-              onChangeText={(name) => this.setState({ name })}
+              value={firstName}
+              onChangeText={(firstName) => this.setState({ firstName })}
+            />
+            <TextBox
+              name="lastName"
+              label="Last Name"
+              passProtected={false}
+              multiline={false}
+              value={lastName}
+              onChangeText={(lastName) => this.setState({ lastName })}
             />
             <TextBox
               name="email"
@@ -206,12 +235,12 @@ class AccountDetailsScreen extends Component {
               }
             />
             <TextBox
-              name="age"
-              label="Age"
+              name="companyName"
+              label="Company Name"
               passProtected={false}
               multiline={false}
-              value={age}
-              onChangeText={(age) => !isNaN(age) && this.setState({ age })}
+              value={companyName}
+              onChangeText={(companyName) => this.setState({ companyName })}
             />
             <View style={styles.selectBox}>
               <SectionedMultiSelect
@@ -233,30 +262,36 @@ class AccountDetailsScreen extends Component {
                 }}
               />
             </View>
-            <View style={styles.selectBox}>
-              <SectionedMultiSelect
-                items={genders}
-                uniqueKey="id"
-                selectText="Select Gender"
-                showDropDowns={true}
-                readOnlyHeadings={false}
-                onSelectedItemsChange={this.handleGender}
-                selectedItems={selectedGender}
-                single={true}
-                hideConfirm={false}
-                modalWithSafeAreaView={true}
-                itemFontFamily="regular"
-                showCancelButton={true}
-                colors={{
-                  selectToggleTextColor: txtBoxText,
-                  text: fifthColor,
-                }}
-              />
-            </View>
+            <TextBox
+              name="townCity"
+              label="Town/City"
+              passProtected={false}
+              multiline={false}
+              value={townCity}
+              onChangeText={(townCity) => this.setState({ townCity })}
+            />
+            <TextBox
+              name="streetAddress"
+              label="Street Address"
+              passProtected={false}
+              multiline={false}
+              value={streetAddress}
+              onChangeText={(streetAddress) => this.setState({ streetAddress })}
+            />
+            <TextBox
+              name="postCode"
+              label="Post Code"
+              passProtected={false}
+              multiline={false}
+              value={postCode}
+              onChangeText={(postCode) =>
+                !isNaN(postCode) && this.setState({ postCode })
+              }
+            />
             <Button
-              label="Save Changes"
+              label="Add Address"
               loading={loading}
-              toExecuteOnClick={this.handleUpdateUserDetails}
+              toExecuteOnClick={this.handleAddAddress}
               presetStyle={{ marginTop: 50 }}
             />
           </View>
@@ -266,8 +301,9 @@ class AccountDetailsScreen extends Component {
   }
 }
 
-const mapStateToProps = ({ countries, authedUser }) => {
+const mapStateToProps = ({ userOrders, countries, authedUser }) => {
   return {
+    userOrders: userOrders && Object.values(userOrders),
     newCountries:
       countries &&
       Object.values(countries).map(({ id, country_name }) => ({
@@ -278,24 +314,31 @@ const mapStateToProps = ({ countries, authedUser }) => {
   };
 };
 
-export default connect(mapStateToProps)(AccountDetailsScreen);
+export default connect(mapStateToProps)(AddAddressScreen);
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-
     backgroundColor: lightOrange,
+  },
+  header: {
+    padding: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderBottomColor: lowGray,
+    borderBottomWidth: 1,
+  },
+  headerTitle: {
+    fontFamily: 'bold',
+    color: fifthColor,
+    fontSize: 18,
+  },
+  headerTitleContainer: {
+    flex: 2,
+    alignItems: 'center',
   },
   scrollviewContainer: {
     padding: 20,
-  },
-  titleContainer: {},
-  title: {
-    fontFamily: 'bold',
-    color: fifthColor,
-    fontSize: 20,
-    textAlign: 'center',
   },
   formContainer: {
     alignItems: 'center',
@@ -305,27 +348,5 @@ const styles = StyleSheet.create({
     borderBottomColor: lowGray,
     borderBottomWidth: 1,
     fontFamily: 'regular',
-  },
-  singleCheck: {
-    backgroundColor: 'transparent',
-    borderWidth: 0,
-    fontFamily: 'regular',
-    color: gray,
-  },
-  header: {
-    padding: 20,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    borderBottomColor: lowGray,
-    borderBottomWidth: 1,
-  },
-  headerTitleContainer: {
-    flex: 2,
-    alignItems: 'center',
-  },
-  headerTitle: {
-    fontFamily: 'bold',
-    color: fifthColor,
-    fontSize: 18,
   },
 });

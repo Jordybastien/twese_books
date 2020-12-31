@@ -32,3 +32,8 @@ export const checkToken = async () => {
   }
   return { token: null, user: null };
 };
+
+export const signupUser = async (user) => {
+  const res = await api.post('/register', user);
+  return res.data;
+};

@@ -85,6 +85,11 @@ const DrawerContent = (props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.singleDrawerItem, styles.borderBottomHere]}
+            onPress={() =>
+              isAuth
+                ? props.navigation.navigate('OrdersScreen')
+                : props.navigation.navigate('LoginScreen')
+            }
           >
             <View style={styles.leftPart}>
               <View style={styles.drawerItemIconHolder}>
@@ -105,7 +110,7 @@ const DrawerContent = (props) => {
             onPress={() =>
               isAuth
                 ? props.navigation.navigate('UserBooksScreen')
-                : props.navigation.navigate('UserBooksScreen')
+                : props.navigation.navigate('LoginScreen')
             }
           >
             <View style={styles.leftPart}>
@@ -124,6 +129,11 @@ const DrawerContent = (props) => {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.singleDrawerItem, styles.borderBottomHere]}
+            onPress={() =>
+              isAuth
+                ? props.navigation.navigate('UserAddressesScreen')
+                : props.navigation.navigate('LoginScreen')
+            }
           >
             <View style={styles.leftPart}>
               <View style={styles.drawerItemIconHolder}>

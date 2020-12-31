@@ -1,11 +1,28 @@
-import { SET_AUTHED_USER, LOGOUT_USER, UPDATE_USER } from './actionTypes';
-import { loginUser, updateUserInfo, fetchUserInfo } from '../services/auth';
+import {
+  SET_AUTHED_USER,
+  LOGOUT_USER,
+  UPDATE_USER,
+  NEW_USER_SIGNUP,
+} from './actionTypes';
+import {
+  loginUser,
+  updateUserInfo,
+  fetchUserInfo,
+  signupUser,
+} from '../services/auth';
 import { logError } from './error';
 import { setToken, setUserInfo } from '../utils/storage';
 
 export const setAuthedUser = (user) => {
   return {
     type: SET_AUTHED_USER,
+    user,
+  };
+};
+
+export const createUser = (user) => {
+  return {
+    type: NEW_USER_SIGNUP,
     user,
   };
 };
@@ -49,6 +66,18 @@ export const handleUserUpdate = (userDetails) => {
         setUserInfo(userInfo.user_info[0]);
         return dispatch(updateUser(userDetails));
       }
+      return dispatch(logError('Failed to update user details'));
+    } catch (error) {
+      return dispatch(logError('Failed to update user details'));
+    }
+  };
+};
+
+export const handleNewUser = (user) => {
+  return async (dispatch) => {
+    try {
+      const response = await signupUser(user);
+      if (response.response_status === 200) return dispatch(createUser(user));
       return dispatch(logError('Failed to update user details'));
     } catch (error) {
       return dispatch(logError('Failed to update user details'));
