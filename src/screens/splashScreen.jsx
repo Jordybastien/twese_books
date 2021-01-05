@@ -39,28 +39,33 @@ const SplashScreen = (props) => {
     let timer2 = setTimeout(async () => {
       const { token, user } = await checkToken();
 
-      if (token && user) {
-        const currentTime = Date.now() / 1000;
-        if (token.exp < currentTime) {
-          await deleteToken();
-          await deleteUserInfo();
-          props.navigation.reset({
-            index: 0,
-            routes: [{ name: 'LoginScreen' }],
-          });
-        } else {
-          props.dispatch(setAuthedUser(user));
-          props.navigation.reset({
-            index: 0,
-            routes: [{ name: 'HomeScreen' }],
-          });
-        }
-      } else {
-        props.navigation.reset({
-          index: 0,
-          routes: [{ name: 'LoginScreen' }],
-        });
-      }
+      props.navigation.reset({
+        index: 0,
+        routes: [{ name: 'HomeScreen' }],
+      });
+
+      // if (token && user) {
+      //   const currentTime = Date.now() / 1000;
+      //   if (token.exp < currentTime) {
+      //     await deleteToken();
+      //     await deleteUserInfo();
+      //     props.navigation.reset({
+      //       index: 0,
+      //       routes: [{ name: 'LoginScreen' }],
+      //     });
+      //   } else {
+      //     props.dispatch(setAuthedUser(user));
+      //     props.navigation.reset({
+      //       index: 0,
+      //       routes: [{ name: 'HomeScreen' }],
+      //     });
+      //   }
+      // } else {
+      //   props.navigation.reset({
+      //     index: 0,
+      //     routes: [{ name: 'LoginScreen' }],
+      //   });
+      // }
     }, 8000);
     return () => {
       clearTimeout(timer1);

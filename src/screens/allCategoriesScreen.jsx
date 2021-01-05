@@ -6,13 +6,17 @@ import {
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Dimensions,
 } from 'react-native';
 import { lightOrange, fifthColor, lowGray } from '../utils/colors';
 import { AntDesign } from '@expo/vector-icons';
-import UserOrder from '../components/userOrders';
+import BookCard from '../components/homeComponents/bookCategories/newBook';
+import { ImageLink, selectColor, colorsPool } from '..//utils/constants';
 
-const UserOrdersScreen = (props) => {
-  const { userOrders } = props;
+const { width, height } = Dimensions.get('window');
+
+const AllCategoriesScreen = (props) => {
+  const { bookCategories } = props;
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -22,26 +26,35 @@ const UserOrdersScreen = (props) => {
           </TouchableOpacity>
         </View>
         <View style={styles.headerTitleContainer}>
-          <Text style={styles.headerTitle}>My Orders</Text>
+          <Text style={styles.headerTitle}>All Categories</Text>
         </View>
       </View>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {userOrders.map((book, index) => (
-          <UserOrder key={index} props={props} book={book} />
-        ))}
-      </ScrollView>
+      <View style={styles.scrollView}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {bookCategories.map((category, index) => (
+            <BookCard
+              title={category.genre_name}
+              icon={`${ImageLink}${category.genre_icon}`}
+              containerColor={colorsPool[index]}
+              props={props}
+              id={category.id}
+              key={index}
+              isHome={false}
+            />
+          ))}
+        </ScrollView>
+      </View>
     </View>
   );
 };
 
-const mapStateToProps = ({ userOrders, bookCategories }) => {
+const mapStateToProps = ({ bookCategories }) => {
   return {
-    userOrders: userOrders && Object.values(userOrders),
     bookCategories: bookCategories && Object.values(bookCategories),
   };
 };
 
-export default connect(mapStateToProps)(UserOrdersScreen);
+export default connect(mapStateToProps)(AllCategoriesScreen);
 
 const styles = StyleSheet.create({
   container: {
@@ -63,5 +76,10 @@ const styles = StyleSheet.create({
   headerTitleContainer: {
     flex: 2,
     alignItems: 'center',
+  },
+  scrollView: {
+    flex: 1,
+    alignItems: 'center',
+    marginTop: 20,
   },
 });

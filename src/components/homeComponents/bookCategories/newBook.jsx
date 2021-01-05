@@ -14,7 +14,7 @@ import { handleFetchCategoryBooks } from '../../../actions/genreBooks';
 
 const { width, height } = Dimensions.get('window');
 
-const BookCard = ({ title, icon, containerColor, props, id }) => {
+const BookCard = ({ title, icon, containerColor, props, id, isHome }) => {
   const handleBookCategory = () => {
     props
       .dispatch(handleFetchCategoryBooks(id))
@@ -23,7 +23,10 @@ const BookCard = ({ title, icon, containerColor, props, id }) => {
 
   return (
     <TouchableOpacity
-      style={[styles.container, { backgroundColor: containerColor }]}
+      style={[
+        styles.container,
+        { backgroundColor: containerColor, marginBottom: !isHome ? 20 : 0 },
+      ]}
       onPress={handleBookCategory}
     >
       <View style={styles.iconHolder}>

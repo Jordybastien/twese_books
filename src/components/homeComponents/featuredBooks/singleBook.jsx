@@ -62,8 +62,9 @@ export default SingleBook;
 
 const styles = StyleSheet.create({
   container: {},
-  artWorkHolder: {},
-  detailsHolder: {},
+  detailsHolder: {
+    paddingLeft: 10,
+  },
   bookImg: {
     width: width / 3,
     height: height / 5 - 10,
@@ -72,9 +73,9 @@ const styles = StyleSheet.create({
   },
   artWorkHolder: {
     marginRight: 10,
-    backgroundColor: fifthColor,
+    // backgroundColor: fifthColor,
     paddingRight: 15,
-    paddingLeft: 15,
+    // paddingLeft: 15,
     borderRadius: 15,
     paddingTop: 10,
     paddingBottom: 10,

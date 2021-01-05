@@ -6,6 +6,7 @@ import {
   Image,
   Dimensions,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import {
   bgColor,
@@ -14,11 +15,11 @@ import {
   firstColor,
   lowGray,
   gray,
-} from '../../../utils/colors';
+} from '../../utils/colors';
 import StarRating from 'react-native-star-rating';
 import { Entypo } from '@expo/vector-icons';
-import { BookCover } from '../../../utils/constants';
-import { handleFetchBookInfo } from '../../../actions/bookInfo';
+import { BookCover } from '../../utils/constants';
+import { handleFetchBookInfo } from '../../actions/bookInfo';
 
 const { width, height } = Dimensions.get('window');
 
@@ -34,8 +35,20 @@ const BookCard = ({ props, book }) => {
       .dispatch(handleFetchBookInfo(book.id))
       .then(() => props.navigation.navigate('SingleBookScreen'));
   };
+
+  const handleClick = () => {
+    props.navigation.navigate('ReadingBookScreen');
+  };
+
   return (
-    <TouchableOpacity style={styles.container} onPress={handleBookInfo}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        props.navigation.navigate('ReadingBookScreen', {
+          book,
+        })
+      }
+    >
       <View style={styles.bookContainer}>
         <View style={styles.imgContainer}>
           <Image
@@ -58,9 +71,6 @@ const BookCard = ({ props, book }) => {
             </Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.dotsContainer}>
-          <Entypo name="dots-three-horizontal" size={24} color={lowGray} />
-        </TouchableOpacity>
       </View>
     </TouchableOpacity>
   );
@@ -88,6 +98,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: width - 100,
     justifyContent: 'space-between',
+    flex: 1,
   },
   bookImg: {
     width: width / 5,
@@ -103,19 +114,22 @@ const styles = StyleSheet.create({
   imgContainer: {
     marginTop: 10,
     marginBottom: 10,
+    flex: 1,
   },
   bookTitle: {
     color: fifthColor,
     fontFamily: 'bold',
     fontSize: 16,
-    width: 150,
   },
   bookAuthor: {
     color: gray,
     fontFamily: 'regular',
     fontSize: 12,
   },
-  detailsContainer: {},
+  detailsContainer: {
+    flex: 2,
+    marginLeft: 10,
+  },
   dotsContainer: {
     alignSelf: 'flex-start',
     paddingRight: 5,
@@ -124,9 +138,8 @@ const styles = StyleSheet.create({
   tag: {
     marginTop: 15,
     backgroundColor: fifthColor,
-    // width: 70,
-    paddingTop:5,
-    paddingBottom:5,
+    width: 70,
+    height: 20,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

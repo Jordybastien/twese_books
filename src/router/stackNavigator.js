@@ -17,6 +17,7 @@ import ReadingBookScreen from '../screens/readingBookScreen';
 import OrdersScreen from '../screens/userOrdersScreen';
 import UserAddressesScreen from '../screens/userAddressesScreen';
 import AddAddressScreen from '../screens/addAddressScreen';
+import AllCategoriesScreen from '../screens/allCategoriesScreen';
 
 const StackNavigatorConfig = {
   headerMode: 'screen',
@@ -97,6 +98,11 @@ const StackConfig = {
     component: AddAddressScreen,
     options: { headerShown: false },
   },
+  AllCategoriesScreen: {
+    name: 'AllCategoriesScreen',
+    component: AllCategoriesScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -118,6 +124,7 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['OrdersScreen']} />
       <Stack.Screen {...StackConfig['UserAddressesScreen']} />
       <Stack.Screen {...StackConfig['AddAddressScreen']} />
+      <Stack.Screen {...StackConfig['AllCategoriesScreen']} />
     </Stack.Navigator>
   );
 };
