@@ -25,7 +25,7 @@ const BannerComponent = ({ props }) => {
     <View style={styles.container}>
       <View style={styles.bookDetailsContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.bookTitle}>Featured book of February</Text>
+          <Text style={styles.bookTitle}>Books of the Month</Text>
         </View>
 
         <TouchableOpacity style={styles.buttonHolder}>

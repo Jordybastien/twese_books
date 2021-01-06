@@ -21,6 +21,7 @@ import { AntDesign } from '@expo/vector-icons';
 import Button from '../components/button';
 import { connect } from 'react-redux';
 import { getCart, removeBookFromCart } from '../utils/storage';
+import { BookCover } from '../utils/constants';
 
 const { width, height } = Dimensions.get('window');
 
@@ -66,17 +67,19 @@ class CartScreen extends Component {
         </View>
         <ScrollView showsVerticalScrollIndicator={false}>
           {cartItems && cartItems.length !== 0 ? (
-            cartItems.map((item) => (
-              <View style={styles.body}>
+            cartItems.map((item, index) => (
+              <View style={styles.body} key={index}>
                 <View style={styles.imageHolder}>
                   <Image
-                    source={require('../../assets/book-3.png')}
+                    source={{
+                      uri: `${BookCover}${item.book_image_name}`,
+                    }}
                     style={styles.bookImage}
                   />
                 </View>
                 <View style={styles.middleInfo}>
                   <View style={styles.bookInfoHolder}>
-                    <View>
+                    <View style={{ marginBottom: 10 }}>
                       <Text style={styles.bookTitle}>{item.book_name}</Text>
                     </View>
                     <View style={styles.authorContainer}>
@@ -85,7 +88,9 @@ class CartScreen extends Component {
                     </View>
                   </View>
                   <View style={styles.qtyPriceHolder}>
-                    <View style={{ flexDirection: 'row' }}>
+                    <View
+                      style={{ flexDirection: 'row', alignItems: 'center' }}
+                    >
                       <Text style={styles.qtyLabel}>Qty</Text>
                       <Text style={styles.qtyValue}>1</Text>
                     </View>
@@ -189,11 +194,13 @@ const styles = StyleSheet.create({
   },
   bookInfoHolder: {
     justifyContent: 'flex-start',
+    // paddingRight: 20,
+    width: width / 2,
   },
   bookTitle: {
     fontFamily: 'bold',
     color: fifthColor,
-    fontSize: 20,
+    fontSize: 17,
   },
   authorContainer: {
     flexDirection: 'row',
@@ -233,7 +240,7 @@ const styles = StyleSheet.create({
   price: {
     fontFamily: 'bold',
     color: fifthColor,
-    fontSize: 25,
+    fontSize: 20,
   },
   bookPriceHolder: {},
   removeLabelContainer: {

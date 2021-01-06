@@ -127,8 +127,9 @@ const styles = StyleSheet.create({
   tag: {
     marginTop: 15,
     backgroundColor: fifthColor,
-    width: 70,
-    height: 20,
+    // width: 70,
+    paddingTop:5,
+    paddingBottom:5,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

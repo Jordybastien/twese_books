@@ -19,7 +19,7 @@ import { Ionicons, Octicons, AntDesign, Feather } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 
 const { width, height } = Dimensions.get('window');
-const HeaderComponent = ({ props }) => {
+const HeaderComponent = ({ props, cartItems }) => {
   return (
     <View style={styles.container}>
       <View style={styles.firstRow}>
@@ -44,6 +44,11 @@ const HeaderComponent = ({ props }) => {
             onPress={() => props.navigation.navigate('CartScreen')}
           >
             <Feather name="shopping-bag" size={24} color={fifthColor} />
+            {cartItems && cartItems.length !== 0 && (
+              <View style={styles.cartCounterContainer}>
+                {/* <Text style={styles.cartCounterLabel}>{cartItems.length}</Text> */}
+              </View>
+            )}
           </TouchableOpacity>
         </View>
       </View>
@@ -143,4 +148,16 @@ const styles = StyleSheet.create({
     height: 3,
     borderRadius: 5,
   },
+  cartCounterContainer: {
+    backgroundColor: 'red',
+    borderRadius: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    // padding: 5,
+    width: 10,
+    height: 10,
+
+  },
+  cartCounterLabel: {},
 });

@@ -5,7 +5,7 @@ const DescriptionTab = ({ bookInfo }) => {
   return (
     <View style={styles.descriptionTab}>
       <Text style={styles.descriptionText}>
-        {bookInfo[0].full_book_description}
+        {bookInfo[0].full_book_description.replace(/(<([^>]+)>)/gi, "")}
       </Text>
     </View>
   );

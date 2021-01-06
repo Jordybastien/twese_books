@@ -59,16 +59,16 @@ const AddToCartComponent = ({ isVisible, hideModal, props }) => {
               />
             </View>
             <View style={styles.bookInfoHolder}>
-              <View>
+              <View style={{ paddingRight: 20 }}>
                 <Text style={styles.bookTitle}>{bookInfo[0].book_name}</Text>
               </View>
               <View style={styles.authorContainer}>
                 <Text style={styles.authorLabel}>By Author</Text>
                 <Text style={styles.authorValue}>{bookInfo[0].name}</Text>
               </View>
-            </View>
-            <View style={styles.bookPriceHolder}>
-              <Text style={styles.price}>$ {bookInfo[0].book_price}</Text>
+              <View style={styles.bookPriceHolder}>
+                <Text style={styles.price}>$ {bookInfo[0].book_price}</Text>
+              </View>
             </View>
           </View>
           <View style={styles.footer}>
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     borderColor: lowGray,
     width,
     padding: 20,
-    height: height / 2.5,
+    height: height / 2,
     borderTopRightRadius: 15,
     borderTopLeftRadius: 15,
   },
@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
   bookTitle: {
     fontFamily: 'bold',
     color: fifthColor,
-    fontSize: 20,
+    fontSize: 17,
   },
   bookInfoHolder: {
     justifyContent: 'flex-start',
@@ -153,9 +153,12 @@ const styles = StyleSheet.create({
   price: {
     fontFamily: 'bold',
     color: fifthColor,
-    fontSize: 25,
+    fontSize: 18,
   },
   bookPriceHolder: {
-    justifyContent: 'flex-end',
+    // justifyContent: 'flex-end',
+    flex: 1,
+    paddingRight: 20,
+    marginBottom: 20,
   },
 });

@@ -18,6 +18,7 @@ import OrdersScreen from '../screens/userOrdersScreen';
 import UserAddressesScreen from '../screens/userAddressesScreen';
 import AddAddressScreen from '../screens/addAddressScreen';
 import AllCategoriesScreen from '../screens/allCategoriesScreen';
+import PasswordChangeScreen from '../screens/passwordChangeScreen';
 
 const StackNavigatorConfig = {
   headerMode: 'screen',
@@ -103,6 +104,11 @@ const StackConfig = {
     component: AllCategoriesScreen,
     options: { headerShown: false },
   },
+  PasswordChangeScreen: {
+    name: 'PasswordChangeScreen',
+    component: PasswordChangeScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -125,6 +131,7 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['UserAddressesScreen']} />
       <Stack.Screen {...StackConfig['AddAddressScreen']} />
       <Stack.Screen {...StackConfig['AllCategoriesScreen']} />
+      <Stack.Screen {...StackConfig['PasswordChangeScreen']} />
     </Stack.Navigator>
   );
 };

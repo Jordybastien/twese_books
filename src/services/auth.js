@@ -37,3 +37,8 @@ export const signupUser = async (user) => {
   const res = await api.post('/register', user);
   return res.data;
 };
+
+export const resetUserPassword = async (user) => {
+  const res = await api.post('/ChangePassword', user);
+  return res.data;
+};

@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import {
   View,
@@ -28,8 +28,18 @@ import Toast from 'react-native-toast-message';
 const { width, height } = Dimensions.get('window');
 
 const UserAddressesScreen = (props) => {
-  const [userAddresses, setUserAddres] = useState(props.userAddresses);
+  const [userAddresses, setUserAddress] = useState(props.userAddresses);
   const { newCountries } = props;
+
+  useEffect(() => {
+    const unsubscribe = props.navigation.addListener('focus', () => {
+      setUserAddress(props.userAddresses);
+    });
+
+    return () => {
+      unsubscribe;
+    };
+  }, [props]);
 
   const handleAddressDelete = (address) => {
     Alert.alert(
@@ -44,7 +54,13 @@ const UserAddressesScreen = (props) => {
           text: 'OK',
           onPress: () => {
             props
-              .dispatch(handleDeleteAddress(address.id, props.authedUser.id))
+              .dispatch(
+                handleDeleteAddress(
+                  address.id,
+                  props.authedUser.id,
+                  address.recordIndex
+                )
+              )
               .then((res) => {
                 if (res.type !== 'LOG_ERROR') {
                   Toast.show({
@@ -52,6 +68,11 @@ const UserAddressesScreen = (props) => {
                     text2: 'Address Deleted',
                     type: 'success',
                   });
+                  setUserAddress(
+                    Object.values(userAddresses).filter(
+                      (el) => el.id !== address.id
+                    )
+                  );
                 } else
                   Toast.show({
                     text1: 'Warning',
@@ -200,7 +221,12 @@ const UserAddressesScreen = (props) => {
 
 const mapStateToProps = ({ userAddresses, countries, authedUser }) => {
   return {
-    userAddresses: userAddresses && Object.values(userAddresses),
+    userAddresses:
+      userAddresses &&
+      Object.values(userAddresses).map((obj, index) => ({
+        ...obj,
+        recordIndex: index,
+      })),
     newCountries:
       countries &&
       Object.values(countries).map(({ id, country_name }) => ({
@@ -252,7 +278,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingLeft: 10,
     paddingRight: 10,
-    height: 150,
+    // height: 150,
+    paddingBottom: 10,
     width: width - 100,
     justifyContent: 'center',
     marginBottom: 10,

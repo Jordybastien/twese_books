@@ -31,3 +31,4 @@ export const makeAddressPrimary = async (addresId, userId) => {
   const res = await api.post('/MakePrimary', { id: addresId, user_id: userId });
   return res.data;
 };
+

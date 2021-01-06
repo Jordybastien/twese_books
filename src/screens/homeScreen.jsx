@@ -19,21 +19,29 @@ import WeekDeals from '../components/homeComponents/weekDeals';
 import { connect } from 'react-redux';
 import { refreshUser } from '../router';
 import { handleAuthedData } from '../actions/initialData';
+import { getCart } from '../utils/storage';
 
 const { width, height } = Dimensions.get('window');
 
 class HomeScreen extends Component {
+  state = {
+    cartItems: [],
+  };
   componentDidMount() {
     refreshUser(this.props).then((user) => {
       if (user) {
         this.props.dispatch(handleAuthedData(user.id));
       }
     });
+    getCart().then((cartItems) => {
+      cartItems && this.setState({ cartItems });
+    });
   }
   render() {
+    const { cartItems } = this.state;
     return (
       <View style={styles.container}>
-        <Header props={this.props} />
+        <Header props={this.props} cartItems={cartItems} />
         <ScrollView showsVerticalScrollIndicator={false}>
           <Banner props={this.props} />
           <BooksCategories props={this.props} />

@@ -55,9 +55,14 @@ class AccountScreen extends Component {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.header}>
             <View style={styles.headerProfileHolder}>
-              <View style={styles.userNameHolder}>
+              <TouchableOpacity
+                style={styles.userNameHolder}
+                onPress={() =>
+                  !isAuth && this.props.navigation.navigate('LoginScreen')
+                }
+              >
                 <Text style={styles.userName}>{userName}</Text>
-              </View>
+              </TouchableOpacity>
               <View style={styles.imageHolder}>
                 <Image
                   source={require('../../assets/profile.png')}
@@ -147,6 +152,26 @@ class AccountScreen extends Component {
                   <Text style={styles.drawerItemLabel}>
                     My Address ({dashboardStats.address})
                   </Text>
+                </View>
+              </View>
+              <View style={styles.rightPart}>
+                <MaterialIcons name="navigate-next" size={24} color={gray} />
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.singleDrawerItem, styles.borderBottomHere]}
+              onPress={() =>
+                isAuth
+                  ? this.props.navigation.navigate('PasswordChangeScreen')
+                  : this.props.navigation.navigate('LoginScreen')
+              }
+            >
+              <View style={styles.leftPart}>
+                <View style={styles.drawerItemIconHolder}>
+                  <AntDesign name="lock1" size={24} color={gray} />
+                </View>
+                <View>
+                  <Text style={styles.drawerItemLabel}>Change Password</Text>
                 </View>
               </View>
               <View style={styles.rightPart}>

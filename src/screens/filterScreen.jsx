@@ -159,7 +159,7 @@ class FilterScreen extends Component {
             handleCategory={this.handleSelectedCountryCategories}
             data={countriesCategoryData}
           />
-          <View style={styles.categoryContainer}>
+          {/* <View style={styles.categoryContainer}>
             <View style={styles.categoryTitleContainer}>
               <Text style={styles.categoryTitle}>Reviews</Text>
             </View>
@@ -290,7 +290,7 @@ class FilterScreen extends Component {
                 </View>
               </View>
             </View>
-          </View>
+          </View> */}
           <View style={styles.buttonHolder}>
             <Button label="Filter" style={styles.filterButton} />
           </View>

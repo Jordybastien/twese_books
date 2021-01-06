@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   userImage: {
     width: width,
     height: height / 2,
-    resizeMode: 'contain',
+    // resizeMode: 'center',
   },
   backBtnContainer: {
     position: 'absolute',
@@ -267,10 +267,13 @@ const styles = StyleSheet.create({
   },
   bookTitleContainer: {
     marginBottom: 10,
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   bookTitle: {
     fontFamily: 'bold',
-    fontSize: 30,
+    fontSize: 20,
+    textAlign: 'center',
   },
   bookPriceContainer: {},
   bookPrice: {

@@ -1,4 +1,8 @@
-import { FETCH_USER_ADDRESSES, ADD_ADDRESS } from './actionTypes';
+import {
+  FETCH_USER_ADDRESSES,
+  ADD_ADDRESS,
+  DELETE_ADDRESS,
+} from './actionTypes';
 import {
   addAddress,
   fetchUserAddresses,
@@ -21,6 +25,13 @@ export const newAddress = (address) => {
   };
 };
 
+export const storeDeleteAddress = (addressId) => {
+  return {
+    type: DELETE_ADDRESS,
+    addressId,
+  };
+};
+
 export const handleNewAddress = (address) => {
   return async (dispatch) => {
     try {
@@ -36,12 +47,13 @@ export const handleNewAddress = (address) => {
   };
 };
 
-export const handleDeleteAddress = (addressId, userId) => {
+export const handleDeleteAddress = (addressId, userId, recordIndex) => {
   return async (dispatch) => {
     try {
       const response = await deleteAddress(addressId);
       if (response.response_status === 200) {
         const newlyCreatedAddress = await fetchUserAddresses(userId);
+        dispatch(storeDeleteAddress(addressId));
         return dispatch(getUserAddresses(newlyCreatedAddress));
       }
       return dispatch(logError('Failed to remove address'));
