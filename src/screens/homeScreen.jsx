@@ -37,6 +37,7 @@ class HomeScreen extends Component {
       cartItems && this.setState({ cartItems });
     });
   }
+  
   render() {
     const { cartItems } = this.state;
     return (

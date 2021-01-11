@@ -22,43 +22,29 @@ import { AntDesign } from '@expo/vector-icons';
 import Button from '../components/button';
 import CategoriesComponent from '../components/filter/bookCategories';
 import StarRating from 'react-native-star-rating';
+import _ from 'lodash';
+import { getSearchResults } from '../actions/searchResult';
+import Toast from 'react-native-toast-message';
 
 const { width, height } = Dimensions.get('window');
 
-const bookCategoriesData = [
-  { id: 1, label: 'Clothing' },
-  { id: 2, label: 'Electronics' },
-  { id: 3, label: 'Kitchen' },
-  { id: 4, label: 'Music' },
-];
-
-const authorsCategoryData = [
-  { id: 1, label: 'A. J. Finn' },
-  { id: 2, label: 'Anne Frank' },
-  { id: 3, label: 'Camille Pagán' },
-  { id: 4, label: 'Daniel H. Pink' },
-  { id: 5, label: 'Danielle Steel' },
-  { id: 6, label: 'David Quammen' },
-];
-
-const countriesCategoryData = [
-  { id: 1, label: 'United States' },
-  { id: 2, label: 'England' },
-  { id: 3, label: 'Rwanda' },
-  { id: 4, label: 'Uganda' },
-  { id: 5, label: 'France' },
-];
-
 class FilterScreen extends Component {
   state = {
-    selectedBookCategories: [1],
-    selectedAuthorCategories: [3],
-    selectedCountryCategories: [5],
+    selectedBookCategories: [],
+    selectedAuthorCategories: [],
+    selectedCountryCategories: [],
     rating5: false,
     rating4: false,
     rating3: false,
     rating2: false,
     rating1: true,
+    countries: this.props.countries,
+    allAuthors: this.props.allAuthors,
+    allBooks: this.props.allBooks,
+    bookCategories: this.props.bookCategories,
+    catSearch: '',
+    authSearch: '',
+    countrySearch: '',
   };
 
   handleSelectedBookCategories = (catId) => {
@@ -106,8 +92,97 @@ class FilterScreen extends Component {
   checkCountryCategorySelected = (catId) =>
     this.state.selectedCountryCategories.some((el) => el === catId);
 
+  handleCatSearch = (catSearch) => {
+    const searchResult = this.state.bookCategories.filter(
+      (el) => el.label.toLowerCase() == catSearch.toLowerCase()
+    );
+    this.setState({
+      catSearch,
+      bookCategories:
+        searchResult.length !== 0 ? searchResult : this.props.bookCategories,
+    });
+  };
+  handleAuthSearch = (authSearch) => {
+    const searchResult = this.state.allAuthors.filter(
+      (el) => el.label.toLowerCase() == authSearch.toLowerCase()
+    );
+    this.setState({
+      authSearch,
+      allAuthors:
+        searchResult.length !== 0 ? searchResult : this.props.allAuthors,
+    });
+  };
+  handleCountrySearch = (countrySearch) => {
+    const searchResult = this.state.countries.filter(
+      (el) => el.label.toLowerCase() == countrySearch.toLowerCase()
+    );
+    this.setState({
+      countrySearch,
+      countries:
+        searchResult.length !== 0 ? searchResult : this.props.countries,
+    });
+  };
+
+  handleFilter = () => {
+    let catResults = [];
+    let authResults = [];
+    let countryResults = [];
+    const {
+      selectedBookCategories,
+      selectedAuthorCategories,
+      selectedCountryCategories,
+    } = this.state;
+    if (selectedBookCategories.length !== 0) {
+      catResults = selectedBookCategories.map((cat) =>
+        this.props.allBooks.filter((el) => el.book_category === cat)
+      );
+    }
+    if (selectedAuthorCategories.length !== 0) {
+      authResults = selectedAuthorCategories.map((cat) =>
+        this.props.allBooks.filter((el) => el.user_id === cat)
+      );
+    }
+    if (selectedCountryCategories.length !== 0) {
+      countryResults = selectedCountryCategories.map((cat) =>
+        this.props.allBooks.filter(
+          (el) => parseInt(el.book_publication_country) === cat
+        )
+      );
+    }
+    const finalResult = _.unionBy(
+      catResults,
+      authResults,
+      countryResults,
+      'id'
+    );
+
+    if (finalResult.length !== 0 && finalResult[0].length !== 0) {
+      this.props.dispatch(getSearchResults(finalResult[0]));
+      return this.props.navigation.navigate('SearchResultScreen');
+    }
+    return Toast.show({
+      text1: 'Warning',
+      text2: 'Book with those details not found!',
+      type: 'error',
+    });
+  };
+
   render() {
-    const { rating5, rating4, rating3, rating2, rating1 } = this.state;
+    const {
+      rating5,
+      rating4,
+      rating3,
+      rating2,
+      rating1,
+      countries,
+      allAuthors,
+      allBooks,
+      bookCategories,
+      catSearch,
+      countrySearch,
+      authSearch,
+    } = this.state;
+
     return (
       <View style={styles.container}>
         <View style={styles.header}>
@@ -131,6 +206,13 @@ class FilterScreen extends Component {
                 rating3: false,
                 rating2: false,
                 rating1: false,
+                countries: this.props.countries,
+                allAuthors: this.props.allAuthors,
+                allBooks: this.props.allBooks,
+                bookCategories: this.props.bookCategories,
+                catSearch: '',
+                authSearch: '',
+                countrySearch: '',
               })
             }
           >
@@ -143,21 +225,27 @@ class FilterScreen extends Component {
             title="Categories"
             checkIfSelected={this.checkBookCategorySelected}
             handleCategory={this.handleSelectedBookCategories}
-            data={bookCategoriesData}
+            data={bookCategories}
+            onChangeText={this.handleCatSearch}
+            value={catSearch}
           />
           {/* Author Categories */}
           <CategoriesComponent
             title="Author"
             checkIfSelected={this.checkAuthorCategorySelected}
             handleCategory={this.handleSelectedAuthorCategories}
-            data={authorsCategoryData}
+            data={allAuthors}
+            onChangeText={this.handleAuthSearch}
+            value={authSearch}
           />
           {/* Countries Categories */}
           <CategoriesComponent
             title="Country"
             checkIfSelected={this.checkCountryCategorySelected}
             handleCategory={this.handleSelectedCountryCategories}
-            data={countriesCategoryData}
+            data={countries}
+            onChangeText={this.handleCountrySearch}
+            value={countrySearch}
           />
           {/* <View style={styles.categoryContainer}>
             <View style={styles.categoryTitleContainer}>
@@ -292,7 +380,11 @@ class FilterScreen extends Component {
             </View>
           </View> */}
           <View style={styles.buttonHolder}>
-            <Button label="Filter" style={styles.filterButton} />
+            <Button
+              label="Filter"
+              style={styles.filterButton}
+              toExecuteOnClick={this.handleFilter}
+            />
           </View>
         </ScrollView>
       </View>
@@ -300,7 +392,38 @@ class FilterScreen extends Component {
   }
 }
 
-export default FilterScreen;
+const mapStateToProps = ({
+  allAuthors,
+  allBooks,
+  authedUser,
+  countries,
+  bookCategories,
+}) => {
+  return {
+    countries:
+      countries &&
+      Object.values(countries).map(({ id, country_name }) => ({
+        label: country_name,
+        id,
+      })),
+    allAuthors:
+      allAuthors &&
+      Object.values(allAuthors).map(({ id, name }) => ({
+        label: name,
+        id,
+      })),
+    allBooks: Object.values(allBooks),
+    authedUser,
+    bookCategories:
+      bookCategories &&
+      Object.values(bookCategories).map(({ id, genre_name }) => ({
+        label: genre_name,
+        id,
+      })),
+  };
+};
+
+export default connect(mapStateToProps)(FilterScreen);
 
 const styles = StyleSheet.create({
   container: {

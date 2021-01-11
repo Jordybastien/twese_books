@@ -146,7 +146,7 @@ class CartScreen extends Component {
             <Button
               label="Checkout"
               toExecuteOnClick={() =>
-                this.props.navigation.navigate('LoginScreen')
+                this.props.navigation.navigate('ShippingAddressScreen')
               }
             />
           </View>

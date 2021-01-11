@@ -29,3 +29,13 @@ export const fetchAuthor = async (authorId) => {
   const res = await api.post('/AuthorProfile', { id: authorId });
   return res.data;
 };
+
+export const fetchAllAuthors = async () => {
+  const res = await api.get('/Authors');
+  return res.data;
+};
+
+export const fetchAllBooks = async () => {
+  const res = await api.get('/AllBooks');
+  return res.data;
+};

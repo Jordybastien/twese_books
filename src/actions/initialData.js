@@ -7,6 +7,8 @@ import {
   fetchBooksCategories,
   fetchNewRelease,
   fetchPopularBooks,
+  fetchAllAuthors,
+  fetchAllBooks,
 } from '../services/book';
 
 import { fetchDashboardStats } from '../services/auth';
@@ -21,6 +23,8 @@ import {
 import { getUserAddresses } from './userAddresses';
 import { getUserOrders } from './userOrders';
 import { getUserBooks } from './userBooks';
+import { getAllAuthors } from './allAuthors';
+import { getAllBooks } from './allBooks';
 
 const getInitialData = async () => {
   const [
@@ -28,11 +32,15 @@ const getInitialData = async () => {
     newRelease,
     popularBooks,
     countries,
+    allAuthors,
+    allBooks,
   ] = await Promise.all([
     fetchBooksCategories(),
     fetchNewRelease(),
     fetchPopularBooks(),
     fetchCountries(),
+    fetchAllAuthors(),
+    fetchAllBooks(),
   ]);
 
   return {
@@ -40,6 +48,8 @@ const getInitialData = async () => {
     newRelease,
     popularBooks,
     countries,
+    allAuthors,
+    allBooks,
   };
 };
 
@@ -48,13 +58,24 @@ export const handleInitialData = () => {
     dispatch(showLoading());
 
     return getInitialData()
-      .then(({ bookCategories, newRelease, popularBooks, countries }) => {
-        dispatch(getBookCategories(bookCategories));
-        dispatch(getNewRelease(newRelease));
-        dispatch(getPopularBooks(popularBooks));
-        dispatch(getCountries(countries));
-        dispatch(hideLoading());
-      })
+      .then(
+        ({
+          bookCategories,
+          newRelease,
+          popularBooks,
+          countries,
+          allAuthors,
+          allBooks,
+        }) => {
+          dispatch(getBookCategories(bookCategories));
+          dispatch(getNewRelease(newRelease));
+          dispatch(getPopularBooks(popularBooks));
+          dispatch(getCountries(countries));
+          dispatch(getAllAuthors(allAuthors));
+          dispatch(getAllBooks(allBooks));
+          dispatch(hideLoading());
+        }
+      )
       .catch(() => dispatch(hideLoading()));
   };
 };

@@ -13,6 +13,9 @@ import countries from './countries';
 import userOrders from './userOrders';
 import userBooks from './userBooks';
 import userAddresses from './userAddresses';
+import allAuthors from './allAuthors';
+import allBooks from './allBooks';
+import searchResults from './searchResult';
 
 export default combineReducers({
   loading,
@@ -29,4 +32,7 @@ export default combineReducers({
   userOrders,
   userBooks,
   userAddresses,
+  allAuthors,
+  allBooks,
+  searchResults,
 });

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { getToken } from '../utils/storage';
 
-export const baseURL = 'http://157.230.237.163/api/v1/user/';
+export const baseURL = 'https://twese.co/api/v1/user/';
 
 const apiCall = axios.create({
   baseURL,

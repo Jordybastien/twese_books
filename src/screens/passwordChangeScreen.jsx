@@ -51,6 +51,7 @@ class PasswordChangeScreen extends Component {
             text2: 'Password Reset Successfully',
             type: 'success',
           });
+          this.setState({ currentPass: '', newPass: '', confirmPassword: '' });
         } else
           Toast.show({
             text1: 'Warning',
@@ -109,7 +110,7 @@ class PasswordChangeScreen extends Component {
       <View style={styles.container}>
         <View style={styles.header}>
           <View>
-            <TouchableOpacity onPress={() => props.navigation.goBack()}>
+            <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
               <AntDesign name="close" size={24} color={fifthColor} />
             </TouchableOpacity>
           </View>

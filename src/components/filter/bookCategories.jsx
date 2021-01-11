@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   View,
   Text,
@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Dimensions,
   ScrollView,
+  TextInput,
 } from 'react-native';
 import {
   bgColor,
@@ -15,22 +16,49 @@ import {
   lightOrange,
   orange,
   lowGray,
+  gray,
 } from '../../utils/colors';
 import { AntDesign } from '@expo/vector-icons';
+
+const { width, height } = Dimensions.get('window');
 
 const CategoriesComponent = ({
   title,
   checkIfSelected,
   handleCategory,
   data,
+  onChangeText,
+  value,
 }) => {
+  const [focused, setFocused] = useState(false);
+
   return (
     <View style={styles.categoryContainer}>
       <View style={styles.categoryTitleContainer}>
         <Text style={styles.categoryTitle}>{title}</Text>
       </View>
+      <View
+        style={[
+          styles.categorySearchContainer,
+          focused && styles.focusedTxtContainer,
+        ]}
+      >
+        <AntDesign
+          name="search1"
+          size={18}
+          color={focused ? fifthColor : gray}
+        />
+        <TextInput
+          placeholder="Search"
+          style={styles.txtBox}
+          onBlur={() => setFocused(false)}
+          onFocus={() => setFocused(true)}
+          onChangeText={onChangeText}
+          value={value}
+        />
+      </View>
       <View style={styles.categoryBody}>
-        {data.map(({ id, label }, index) => (
+        {data.slice(0, 8).map(({ id, label }, index) => (
           <TouchableOpacity
             style={[
               styles.bookCategoryContainer,
@@ -98,4 +126,19 @@ const styles = StyleSheet.create({
     color: fifthColor,
   },
   selectedBookCategoryTitle: { color: white },
+  categorySearchContainer: {
+    marginBottom: 15,
+    borderBottomColor: lowGray,
+    borderBottomWidth: 1,
+    paddingBottom: 10,
+    flexDirection: 'row',
+  },
+  txtBox: {
+    width: width - 100,
+    fontFamily: 'regular',
+  },
+  focusedTxtContainer: {
+    borderBottomColor: fifthColor,
+    borderBottomWidth: 2,
+  },
 });

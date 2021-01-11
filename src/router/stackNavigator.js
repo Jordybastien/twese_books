@@ -19,6 +19,8 @@ import UserAddressesScreen from '../screens/userAddressesScreen';
 import AddAddressScreen from '../screens/addAddressScreen';
 import AllCategoriesScreen from '../screens/allCategoriesScreen';
 import PasswordChangeScreen from '../screens/passwordChangeScreen';
+import ShippingAddressScreen from '../screens/shippingAddressScreen';
+import SearchResultScreen from '../screens/searchResultScreen'
 
 const StackNavigatorConfig = {
   headerMode: 'screen',
@@ -109,6 +111,16 @@ const StackConfig = {
     component: PasswordChangeScreen,
     options: { headerShown: false },
   },
+  ShippingAddressScreen: {
+    name: 'ShippingAddressScreen',
+    component: ShippingAddressScreen,
+    options: { headerShown: false },
+  },
+  SearchResultScreen: {
+    name: 'SearchResultScreen',
+    component: SearchResultScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -132,6 +144,8 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['AddAddressScreen']} />
       <Stack.Screen {...StackConfig['AllCategoriesScreen']} />
       <Stack.Screen {...StackConfig['PasswordChangeScreen']} />
+      <Stack.Screen {...StackConfig['ShippingAddressScreen']} />
+      <Stack.Screen {...StackConfig['SearchResultScreen']} />
     </Stack.Navigator>
   );
 };
