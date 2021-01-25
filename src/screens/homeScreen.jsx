@@ -37,9 +37,10 @@ class HomeScreen extends Component {
       cartItems && this.setState({ cartItems });
     });
   }
-  
+
   render() {
     const { cartItems } = this.state;
+    
     return (
       <View style={styles.container}>
         <Header props={this.props} cartItems={cartItems} />

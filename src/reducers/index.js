@@ -16,6 +16,8 @@ import userAddresses from './userAddresses';
 import allAuthors from './allAuthors';
 import allBooks from './allBooks';
 import searchResults from './searchResult';
+import vendorDetails from './vendorDetails';
+import paymentLink from './paymentLink';
 
 export default combineReducers({
   loading,
@@ -35,4 +37,6 @@ export default combineReducers({
   allAuthors,
   allBooks,
   searchResults,
+  vendorDetails,
+  paymentLink,
 });

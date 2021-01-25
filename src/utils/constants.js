@@ -1,7 +1,9 @@
-export const ImageLink = 'http://157.230.237.163/GenreIcon/';
-export const BookCover = 'http://157.230.237.163/BookCover/';
-export const UserProfile = 'http://157.230.237.163/UserProfile/';
-export const ReadBookLink = 'http://157.230.237.163/BookFile/';
+const serverLink = 'https://twese.co/';
+
+export const ImageLink = `${serverLink}GenreIcon/`;
+export const BookCover = `${serverLink}BookCover/`;
+export const UserProfile = `${serverLink}UserProfile/`;
+export const ReadBookLink = `${serverLink}BookFile/`;
 
 export const colorsPool = [
   '#fed6e0',

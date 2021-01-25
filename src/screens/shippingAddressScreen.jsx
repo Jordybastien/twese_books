@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   Dimensions,
+  Linking,
 } from 'react-native';
 import { AntDesign, FontAwesome5 } from '@expo/vector-icons';
 import {
@@ -20,6 +21,8 @@ import {
 import { connect } from 'react-redux';
 import Button from '../components/button';
 import Toast from 'react-native-toast-message';
+import { handleGetVendorDetails, handlePayment } from '../actions/payment';
+import { removeBookFromCart } from '../utils/storage';
 
 const { width, height } = Dimensions.get('window');
 
@@ -36,17 +39,102 @@ class ShippingAddress extends Component {
   }
 
   handleOrder = () => {
-    if (this.state.selAdd) return this.props.navigation.navigate('CartScreen');
-    return Toast.show({
-      text1: 'Warning',
-      text2: 'Please Select Shipping Address',
-      type: 'error',
-    });
+    if (this.state.selAdd !== '') {
+      const { totalPrice, cartItems } = this.props.route.params;
+      const {
+        authedUser,
+        userAddresses,
+        subAccounts: subaccounts,
+      } = this.props;
+      this.setState({ loading: true });
+      this.props
+        .dispatch(
+          handleGetVendorDetails({
+            user_id: authedUser.id,
+            first_name: authedUser.name.split(' ')[0],
+            last_name: authedUser.name.split(' ')[1],
+            company_name: userAddresses[this.state.selAdd].company_name,
+            country_id: userAddresses[this.state.selAdd].country_id,
+            street_address_house_number:
+              userAddresses[this.state.selAdd].street_address_house_number,
+            town_city: userAddresses[this.state.selAdd].town_city,
+            post_code: userAddresses[this.state.selAdd].post_code,
+            phone_number: userAddresses[this.state.selAdd].phone_number,
+            email: userAddresses[this.state.selAdd].email,
+            tx_ref: Date.now(),
+            item_ids: cartItems,
+          })
+        )
+        .then((res) => {
+          if (res.type !== 'LOG_ERROR') {
+            const { vendorDetails } = this.props;
+            this.props
+              .dispatch(
+                handlePayment(
+                  {
+                    tx_ref: Date.now(),
+                    amount: vendorDetails.amount,
+                    currency: vendorDetails.currency,
+                    payment_options: 'card',
+                    redirect_url: 'https://twese.co/',
+                    customer: {
+                      name: authedUser.name,
+                      email: authedUser.email,
+                      phonenumber: authedUser.phone_number,
+                    },
+                    customizations: {
+                      title: 'Twese',
+                      description: 'Cashing out payment',
+                      logo: 'https://twese.co/assets/img/Original.png',
+                    },
+                    subaccounts,
+                  },
+                  vendorDetails.secret_key
+                )
+              )
+              .then((resp) => {
+                if (resp.type !== 'LOG_ERROR') {
+                  const { paymentLink } = this.props;
+
+                  Linking.openURL(paymentLink);
+                  Linking.canOpenURL(paymentLink).then((supported) => {
+                    if (supported) {
+                      removeBookFromCart([]);
+                      this.props.navigation.reset({
+                        index: 0,
+                        routes: [{ name: 'HomeScreen' }],
+                      });
+                    }
+                  });
+                } else {
+                  Toast.show({
+                    text1: 'Warning',
+                    text2: res.error,
+                    type: 'error',
+                  });
+                }
+              });
+            this.setState({ loading: false });
+          } else {
+            Toast.show({
+              text1: 'Warning',
+              text2: res.error,
+              type: 'error',
+            });
+            this.setState({ loading: false });
+          }
+        });
+    } else
+      Toast.show({
+        text1: 'Warning',
+        text2: 'Please Select Shipping Address',
+        type: 'error',
+      });
   };
 
   render() {
     const { userAddresses, newCountries } = this.props;
-    const { selAdd } = this.state;
+    const { selAdd, loading } = this.state;
 
     return (
       <View style={styles.container}>
@@ -111,7 +199,9 @@ class ShippingAddress extends Component {
               <TouchableOpacity
                 style={styles.emptyCart}
                 onPress={() =>
-                  this.props.navigation.navigate('AddAddressScreen')
+                  this.props.navigation.navigate('AddAddressScreen', {
+                    address: userAddresses[selAdd] ?? {},
+                  })
                 }
               >
                 <View>
@@ -122,6 +212,7 @@ class ShippingAddress extends Component {
             )}
             <Button
               label="Confirm & Pay"
+              loading={loading}
               toExecuteOnClick={this.handleOrder}
               presetStyle={{ marginTop: 10 }}
             />
@@ -132,7 +223,13 @@ class ShippingAddress extends Component {
   }
 }
 
-const mapStateToProps = ({ userAddresses, countries, authedUser }) => {
+const mapStateToProps = ({
+  userAddresses,
+  countries,
+  authedUser,
+  vendorDetails,
+  paymentLink,
+}) => {
   return {
     userAddresses:
       userAddresses &&
@@ -147,6 +244,17 @@ const mapStateToProps = ({ userAddresses, countries, authedUser }) => {
         id,
       })),
     authedUser,
+    vendorDetails,
+    subAccounts:
+      vendorDetails &&
+      vendorDetails.sub_account_info &&
+      vendorDetails.sub_account_info.length !== 0 &&
+      vendorDetails.sub_account_info.map((subAccount) => ({
+        id: subAccount.AccountId,
+        transaction_charge: subAccount.transaction_charge,
+        transaction_charge_type: subAccount.transaction_charge_type,
+      })),
+    paymentLink,
   };
 };
 

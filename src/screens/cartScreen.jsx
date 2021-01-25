@@ -49,6 +49,7 @@ class CartScreen extends Component {
 
   render() {
     const { cartItems } = this.state;
+
     const totalPrice = cartItems
       ? cartItems.reduce((total, item) => total + parseInt(item.book_price), 0)
       : 0;
@@ -146,7 +147,13 @@ class CartScreen extends Component {
             <Button
               label="Checkout"
               toExecuteOnClick={() =>
-                this.props.navigation.navigate('ShippingAddressScreen')
+                this.props.isAuth
+                  ? this.props.navigation.navigate('ShippingAddressScreen', {
+                      totalPrice,
+                      cartItems:
+                        cartItems && cartItems.map((cartItem) => cartItem.id),
+                    })
+                  : this.props.navigation.navigate('LoginScreen')
               }
             />
           </View>
@@ -156,7 +163,13 @@ class CartScreen extends Component {
   }
 }
 
-export default connect()(CartScreen);
+const mapStateToProps = ({ authedUser }) => {
+  return {
+    isAuth: Object.keys(authedUser).length !== 0,
+  };
+};
+
+export default connect(mapStateToProps)(CartScreen);
 
 const styles = StyleSheet.create({
   container: {

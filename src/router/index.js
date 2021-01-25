@@ -10,9 +10,17 @@ import Toast from 'react-native-toast-message';
 import { checkToken } from '../services/auth';
 import { deleteToken, deleteUserInfo } from '../utils/storage';
 import { setAuthedUser } from '../actions/authedUser';
+import NotConnected from '../screens/notConnectedScreen';
+import NetInfo from '@react-native-community/netinfo';
 
 class Router extends Component {
+  state = {
+    isConnected: true,
+  };
   componentDidMount() {
+    NetInfo.fetch().then((state) => {
+      this.setState({ isConnected: state?.isConnected ?? false });
+    });
     this.props.dispatch(handleInitialData());
     refreshUser(this.props).then((user) => {
       if (user) {
@@ -23,12 +31,14 @@ class Router extends Component {
 
   render() {
     refreshUser(this.props);
-    return (
+    return this.state.isConnected ? (
       <NavigationContainer>
         <AppStatusBar backgroundColor={fifthColor} barStyle="" />
         <MainNav />
         <Toast ref={(ref) => Toast.setRef(ref)} />
       </NavigationContainer>
+    ) : (
+      <NotConnected />
     );
   }
 }

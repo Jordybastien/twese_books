@@ -193,22 +193,24 @@ class AccountScreen extends Component {
                 <MaterialIcons name="navigate-next" size={24} color={gray} />
               </View>
             </TouchableOpacity>
-            <TouchableOpacity
-              style={[styles.singleDrawerItem, styles.logoutContainer]}
-              onPress={() => this.handleLogout()}
-            >
-              <View style={styles.leftPart}>
-                <View style={styles.drawerItemIconHolder}>
-                  <SimpleLineIcons name="logout" size={24} color={gray} />
+            {isAuth && (
+              <TouchableOpacity
+                style={[styles.singleDrawerItem, styles.logoutContainer]}
+                onPress={() => this.handleLogout()}
+              >
+                <View style={styles.leftPart}>
+                  <View style={styles.drawerItemIconHolder}>
+                    <SimpleLineIcons name="logout" size={24} color={gray} />
+                  </View>
+                  <View>
+                    <Text style={styles.drawerItemLabel}>Logout</Text>
+                  </View>
                 </View>
-                <View>
-                  <Text style={styles.drawerItemLabel}>Logout</Text>
+                <View style={styles.rightPart}>
+                  <MaterialIcons name="navigate-next" size={24} color={gray} />
                 </View>
-              </View>
-              <View style={styles.rightPart}>
-                <MaterialIcons name="navigate-next" size={24} color={gray} />
-              </View>
-            </TouchableOpacity>
+              </TouchableOpacity>
+            )}
           </View>
         </ScrollView>
       </View>

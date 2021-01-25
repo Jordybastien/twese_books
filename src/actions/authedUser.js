@@ -15,6 +15,7 @@ import {
 import { logError } from './error';
 import { setToken, setUserInfo } from '../utils/storage';
 import { handleAuthedData } from './initialData';
+import api from '../services/api';
 
 export const setAuthedUser = (user) => {
   return {
@@ -57,6 +58,7 @@ export const handleUserLogin = (user) => {
       if (response.response_status === 200) {
         setToken(response.access_token);
         setUserInfo(response.user);
+        api.setJwt();
         dispatch(handleAuthedData(response.user.id));
         return dispatch(setAuthedUser(response.user));
       }
