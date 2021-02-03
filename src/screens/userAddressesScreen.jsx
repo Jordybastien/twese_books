@@ -223,10 +223,12 @@ const mapStateToProps = ({ userAddresses, countries, authedUser }) => {
   return {
     userAddresses:
       userAddresses &&
-      Object.values(userAddresses).map((obj, index) => ({
-        ...obj,
-        recordIndex: index,
-      })),
+      Object.values(userAddresses)
+        .map((obj, index) => ({
+          ...obj,
+          recordIndex: index,
+        }))
+        .reverse(),
     newCountries:
       countries &&
       Object.values(countries).map(({ id, country_name }) => ({

@@ -22,7 +22,6 @@ import { connect } from 'react-redux';
 import Button from '../components/button';
 import Toast from 'react-native-toast-message';
 import { handleGetVendorDetails, handlePayment } from '../actions/payment';
-import { removeBookFromCart } from '../utils/storage';
 
 const { width, height } = Dimensions.get('window');
 
@@ -46,6 +45,7 @@ class ShippingAddress extends Component {
         userAddresses,
         subAccounts: subaccounts,
       } = this.props;
+      const txRef = Date.now();
       this.setState({ loading: true });
       this.props
         .dispatch(
@@ -61,7 +61,7 @@ class ShippingAddress extends Component {
             post_code: userAddresses[this.state.selAdd].post_code,
             phone_number: userAddresses[this.state.selAdd].phone_number,
             email: userAddresses[this.state.selAdd].email,
-            tx_ref: Date.now(),
+            tx_ref: txRef,
             item_ids: cartItems,
           })
         )
@@ -72,7 +72,7 @@ class ShippingAddress extends Component {
               .dispatch(
                 handlePayment(
                   {
-                    tx_ref: Date.now(),
+                    tx_ref: txRef,
                     amount: vendorDetails.amount,
                     currency: vendorDetails.currency,
                     payment_options: 'card',
@@ -94,18 +94,10 @@ class ShippingAddress extends Component {
               )
               .then((resp) => {
                 if (resp.type !== 'LOG_ERROR') {
-                  const { paymentLink } = this.props;
-
-                  Linking.openURL(paymentLink);
-                  Linking.canOpenURL(paymentLink).then((supported) => {
-                    if (supported) {
-                      removeBookFromCart([]);
-                      this.props.navigation.reset({
-                        index: 0,
-                        routes: [{ name: 'HomeScreen' }],
-                      });
-                    }
-                  });
+                  if (this.props.paymentLink)
+                    this.props.navigation.navigate('FlutterWaveScreen', {
+                      cartItems,
+                    });
                 } else {
                   Toast.show({
                     text1: 'Warning',

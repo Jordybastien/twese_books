@@ -36,7 +36,7 @@ const UserOrdersScreen = (props) => {
 
 const mapStateToProps = ({ userOrders, bookCategories }) => {
   return {
-    userOrders: userOrders && Object.values(userOrders),
+    userOrders: userOrders && Object.values(userOrders).reverse(),
     bookCategories: bookCategories && Object.values(bookCategories),
   };
 };

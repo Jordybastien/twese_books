@@ -31,3 +31,8 @@ export const makeAddressPrimary = async (addresId, userId) => {
   const res = await api.post('/MakePrimary', { id: addresId, user_id: userId });
   return res.data;
 };
+
+export const updateSuccessfulPayment = async (paymentInfo) => {
+  const res = await api.post('/SuccessfulPaymentMobile', paymentInfo);
+  return res.data;
+};

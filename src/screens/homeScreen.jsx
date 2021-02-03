@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import { refreshUser } from '../router';
 import { handleAuthedData } from '../actions/initialData';
 import { getCart } from '../utils/storage';
+import LoadingScreen from '../components/loadingScreen';
 
 const { width, height } = Dimensions.get('window');
 
@@ -40,8 +41,9 @@ class HomeScreen extends Component {
 
   render() {
     const { cartItems } = this.state;
-    
-    return (
+    const { loading } = this.props;
+
+    return !loading ? (
       <View style={styles.container}>
         <Header props={this.props} cartItems={cartItems} />
         <ScrollView showsVerticalScrollIndicator={false}>
@@ -53,15 +55,23 @@ class HomeScreen extends Component {
           <WeekDeals props={this.props} />
         </ScrollView>
       </View>
+    ) : (
+      <LoadingScreen />
     );
   }
 }
 
-const mapStateToProps = ({ popularBooks, bookCategories, newRelease }) => {
+const mapStateToProps = ({
+  popularBooks,
+  bookCategories,
+  newRelease,
+  loading,
+}) => {
   return {
     popularBooks: popularBooks && Object.values(popularBooks),
     bookCategories: bookCategories && Object.values(bookCategories),
     newRelease: newRelease && Object.values(newRelease),
+    loading,
   };
 };
 

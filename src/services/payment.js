@@ -8,3 +8,4 @@ export const flutterWavePayment = async (paymentDetails, secretKey) => {
   );
   return res.data;
 };
+

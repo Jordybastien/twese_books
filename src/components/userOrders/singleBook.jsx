@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
   tag: {
     marginTop: 15,
     backgroundColor: fifthColor,
-    width: 70,
+    // width: 170,
     height: 20,
     borderRadius: 10,
     justifyContent: 'center',

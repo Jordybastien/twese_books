@@ -25,6 +25,7 @@ import {
   MaterialIcons,
   SimpleLineIcons,
   FontAwesome5,
+  FontAwesome,
 } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import { deleteToken, deleteUserInfo } from '../../utils/storage';
@@ -39,10 +40,6 @@ const DrawerContent = (props) => {
     deleteToken().then(() => {
       deleteUserInfo();
       props.dispatch(logoutUser());
-      props.navigation.reset({
-        index: 0,
-        routes: [{ name: 'LoginScreen' }],
-      });
     });
   };
 
@@ -57,154 +54,157 @@ const DrawerContent = (props) => {
                 !isAuth && props.navigation.navigate('LoginScreen')
               }
             >
-              <Text style={styles.userName}>{userName}</Text>
+              {isAuth && <Text style={styles.userName}>{userName}</Text>}
             </TouchableOpacity>
             <View style={styles.imageHolder}>
-              <Image
-                source={require('../../../assets/profile.png')}
-                style={styles.profileImg}
-              />
+              <FontAwesome name="user-circle-o" size={120} color={white} />
             </View>
           </View>
         </View>
         <View style={styles.body}>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.borderBottomHere]}
-            onPress={() =>
-              isAuth
-                ? props.navigation.navigate('AccountDetailsScreen')
-                : props.navigation.navigate('LoginScreen')
-            }
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <Feather name="user" size={24} color={gray} />
+          {isAuth ? (
+            <>
+              <TouchableOpacity
+                style={[styles.singleDrawerItem, styles.borderBottomHere]}
+                onPress={() =>
+                  props.navigation.navigate('AccountDetailsScreen')
+                }
+              >
+                <View style={styles.leftPart}>
+                  <View style={styles.drawerItemIconHolder}>
+                    <Feather name="user" size={24} color={gray} />
+                  </View>
+                  <View>
+                    <Text style={styles.drawerItemLabel}>Account Details</Text>
+                  </View>
+                </View>
+                <View style={styles.rightPart}>
+                  <MaterialIcons name="navigate-next" size={24} color={gray} />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.singleDrawerItem, styles.borderBottomHere]}
+                onPress={() => props.navigation.navigate('OrdersScreen')}
+              >
+                <View style={styles.leftPart}>
+                  <View style={styles.drawerItemIconHolder}>
+                    <Feather name="shopping-bag" size={24} color={gray} />
+                  </View>
+                  <View>
+                    <Text style={styles.drawerItemLabel}>
+                      My Orders ({dashboardStats.order})
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.rightPart}>
+                  <MaterialIcons name="navigate-next" size={24} color={gray} />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.singleDrawerItem, styles.borderBottomHere]}
+                onPress={() => props.navigation.navigate('UserBooksScreen')}
+              >
+                <View style={styles.leftPart}>
+                  <View style={styles.drawerItemIconHolder}>
+                    <Feather name="book" size={24} color={gray} />
+                  </View>
+                  <View>
+                    <Text style={styles.drawerItemLabel}>
+                      My Books ({dashboardStats.books})
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.rightPart}>
+                  <MaterialIcons name="navigate-next" size={24} color={gray} />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.singleDrawerItem, styles.borderBottomHere]}
+                onPress={() => props.navigation.navigate('UserAddressesScreen')}
+              >
+                <View style={styles.leftPart}>
+                  <View style={styles.drawerItemIconHolder}>
+                    <FontAwesome5 name="address-book" size={24} color={gray} />
+                  </View>
+                  <View>
+                    <Text style={styles.drawerItemLabel}>
+                      My Address ({dashboardStats.address})
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.rightPart}>
+                  <MaterialIcons name="navigate-next" size={24} color={gray} />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.singleDrawerItem, styles.borderBottomHere]}
+                onPress={() =>
+                  props.navigation.navigate('PasswordChangeScreen')
+                }
+              >
+                <View style={styles.leftPart}>
+                  <View style={styles.drawerItemIconHolder}>
+                    <AntDesign name="lock1" size={24} color={gray} />
+                  </View>
+                  <View>
+                    <Text style={styles.drawerItemLabel}>Change Password</Text>
+                  </View>
+                </View>
+                <View style={styles.rightPart}>
+                  <MaterialIcons name="navigate-next" size={24} color={gray} />
+                </View>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={[styles.singleDrawerItem, styles.borderBottomHere]}
+              >
+                <View style={styles.leftPart}>
+                  <View style={styles.drawerItemIconHolder}>
+                    <Feather name="bookmark" size={24} color={gray} />
+                  </View>
+                  <View>
+                    <Text style={styles.drawerItemLabel}>Wishlist</Text>
+                  </View>
+                </View>
+                <View style={styles.rightPart}>
+                  <MaterialIcons name="navigate-next" size={24} color={gray} />
+                </View>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                style={[styles.singleDrawerItem, styles.logoutContainer]}
+                onPress={() => handleLogout()}
+              >
+                <View style={styles.leftPart}>
+                  <View style={styles.drawerItemIconHolder}>
+                    <SimpleLineIcons name="logout" size={24} color={gray} />
+                  </View>
+                  <View>
+                    <Text style={styles.drawerItemLabel}>Logout</Text>
+                  </View>
+                </View>
+                <View style={styles.rightPart}>
+                  <MaterialIcons name="navigate-next" size={24} color={gray} />
+                </View>
+              </TouchableOpacity>
+            </>
+          ) : (
+            <TouchableOpacity
+              style={[styles.singleDrawerItem, styles.borderBottomHere]}
+              onPress={() => props.navigation.navigate('LoginScreen')}
+            >
+              <View style={styles.leftPart}>
+                <View style={styles.drawerItemIconHolder}>
+                  <SimpleLineIcons name="login" size={24} color={gray} />
+                </View>
+                <View>
+                  <Text style={styles.drawerItemLabel}>Login</Text>
+                </View>
               </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>Account Details</Text>
+              <View style={styles.rightPart}>
+                <MaterialIcons name="navigate-next" size={24} color={gray} />
               </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.borderBottomHere]}
-            onPress={() =>
-              isAuth
-                ? props.navigation.navigate('OrdersScreen')
-                : props.navigation.navigate('LoginScreen')
-            }
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <Feather name="shopping-bag" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>
-                  My Orders ({dashboardStats.order})
-                </Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.borderBottomHere]}
-            onPress={() =>
-              isAuth
-                ? props.navigation.navigate('UserBooksScreen')
-                : props.navigation.navigate('LoginScreen')
-            }
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <Feather name="book" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>
-                  My Books ({dashboardStats.books})
-                </Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.borderBottomHere]}
-            onPress={() =>
-              isAuth
-                ? props.navigation.navigate('UserAddressesScreen')
-                : props.navigation.navigate('LoginScreen')
-            }
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <FontAwesome5 name="address-book" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>
-                  My Address ({dashboardStats.address})
-                </Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.borderBottomHere]}
-            onPress={() =>
-              isAuth
-                ? props.navigation.navigate('PasswordChangeScreen')
-                : props.navigation.navigate('LoginScreen')
-            }
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <AntDesign name="lock1" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>Change Password</Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.borderBottomHere]}
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <Feather name="bookmark" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>Wishlist</Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.logoutContainer]}
-            onPress={() => handleLogout()}
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <SimpleLineIcons name="logout" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>Logout</Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
+            </TouchableOpacity>
+          )}
         </View>
       </DrawerContentScrollView>
     </View>
@@ -255,6 +255,17 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignSelf: 'center',
     marginTop: 95,
+    width: 120,
+    height: 120,
+    borderRadius: 120,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: fifthColor,
+  },
+  userInitials: {
+    fontFamily: 'bold',
+    fontSize: 40,
   },
   userNameHolder: {
     alignItems: 'center',

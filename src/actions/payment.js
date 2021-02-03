@@ -2,6 +2,9 @@ import { FETCH_VENDOR_DETAILS, FETCH_PAYMENT_LINK } from './actionTypes';
 import { logError } from './error';
 import { fetchVendorDetails } from '../services/vendorDetails';
 import { flutterWavePayment } from '../services/payment';
+import { updateSuccessfulPayment } from '../services/user';
+import { removeBookFromCart } from '../utils/storage';
+import { handleAuthedData } from './initialData';
 
 export const getVendorDetails = (vendorDetails) => {
   return {
@@ -40,6 +43,22 @@ export const handlePayment = (paymentDetails, secretKey) => {
       return dispatch(logError('Failed to Connect to Payment Gateway'));
     } catch (error) {
       return dispatch(logError('Failed to trigger payment'));
+    }
+  };
+};
+
+export const handleSuccessfulPayment = (paymentInfo) => {
+  return async (dispatch) => {
+    try {
+      const paymentUpdate = await updateSuccessfulPayment(paymentInfo);
+      if (paymentUpdate.response_status === 200) {
+        removeBookFromCart([]);
+        dispatch(handleAuthedData(paymentInfo.user_id));
+        return true;
+      }
+      return false;
+    } catch (error) {
+      return dispatch(logError('Failed to update payment details'));
     }
   };
 };

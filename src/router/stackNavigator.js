@@ -20,7 +20,8 @@ import AddAddressScreen from '../screens/addAddressScreen';
 import AllCategoriesScreen from '../screens/allCategoriesScreen';
 import PasswordChangeScreen from '../screens/passwordChangeScreen';
 import ShippingAddressScreen from '../screens/shippingAddressScreen';
-import SearchResultScreen from '../screens/searchResultScreen'
+import SearchResultScreen from '../screens/searchResultScreen';
+import FlutterWaveScreen from '../screens/flutterWaveScreen';
 
 const StackNavigatorConfig = {
   headerMode: 'screen',
@@ -121,6 +122,11 @@ const StackConfig = {
     component: SearchResultScreen,
     options: { headerShown: false },
   },
+  FlutterWaveScreen: {
+    name: 'FlutterWaveScreen',
+    component: FlutterWaveScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -146,6 +152,7 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['PasswordChangeScreen']} />
       <Stack.Screen {...StackConfig['ShippingAddressScreen']} />
       <Stack.Screen {...StackConfig['SearchResultScreen']} />
+      <Stack.Screen {...StackConfig['FlutterWaveScreen']} />
     </Stack.Navigator>
   );
 };
