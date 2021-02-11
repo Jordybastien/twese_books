@@ -7,7 +7,7 @@ import {
   ScrollView,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { lightOrange, fifthColor } from '../utils/colors';
+import { lightOrange, fifthColor, lowGray } from '../utils/colors';
 import { AntDesign } from '@expo/vector-icons';
 import BookCategories from '../components/bookCategories';
 
@@ -19,19 +19,20 @@ class BookCategoryScreen extends Component {
         <View style={styles.header}>
           <View>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <AntDesign name="close" size={24} color={fifthColor} />
+              <AntDesign name="close" size={24} color={lightOrange} />
             </TouchableOpacity>
           </View>
-          {/* <View style={{ flex: 2, alignItems: 'center' }}>
-            <Text style={styles.headerTitle}></Text>
-          </View> */}
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <BookCategories
-              props={this.props}
-              title={this.props.genreBooks[0].genre_name}
-            />
-          </ScrollView>
+          <View style={{ flex: 2, alignItems: 'center' }}>
+            <Text style={styles.headerTitle}>
+              {this.props.genreBooks[0].genre_name}
+            </Text>
+          </View>
         </View>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <BookCategories
+            props={this.props}
+          />
+        </ScrollView>
       </View>
     );
   }
@@ -52,8 +53,16 @@ const styles = StyleSheet.create({
     backgroundColor: lightOrange,
   },
   header: {
-    flexDirection: 'row',
     padding: 20,
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    borderBottomColor: lowGray,
+    borderBottomWidth: 1,
+    backgroundColor: fifthColor,
+  },
+  headerTitle: {
+    fontFamily: 'bold',
+    color: lightOrange,
+    fontSize: 18,
   },
 });

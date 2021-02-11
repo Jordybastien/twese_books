@@ -22,6 +22,9 @@ import PasswordChangeScreen from '../screens/passwordChangeScreen';
 import ShippingAddressScreen from '../screens/shippingAddressScreen';
 import SearchResultScreen from '../screens/searchResultScreen';
 import FlutterWaveScreen from '../screens/flutterWaveScreen';
+import PoliciesScreen from '../screens/policiesScreen';
+import WebViewScreen from '../screens/webViewScreen';
+import ExploreScreen from '../screens/exploreScreen';
 
 const StackNavigatorConfig = {
   headerMode: 'screen',
@@ -127,6 +130,21 @@ const StackConfig = {
     component: FlutterWaveScreen,
     options: { headerShown: false },
   },
+  PoliciesScreen: {
+    name: 'PoliciesScreen',
+    component: PoliciesScreen,
+    options: { headerShown: false },
+  },
+  WebViewScreen: {
+    name: 'WebViewScreen',
+    component: WebViewScreen,
+    options: { headerShown: false },
+  },
+  ExploreScreen: {
+    name: 'ExploreScreen',
+    component: ExploreScreen,
+    options: { headerShown: false },
+  },
 };
 const Stack = createStackNavigator();
 
@@ -153,6 +171,9 @@ const StackNavigator = () => {
       <Stack.Screen {...StackConfig['ShippingAddressScreen']} />
       <Stack.Screen {...StackConfig['SearchResultScreen']} />
       <Stack.Screen {...StackConfig['FlutterWaveScreen']} />
+      <Stack.Screen {...StackConfig['PoliciesScreen']} />
+      <Stack.Screen {...StackConfig['WebViewScreen']} />
+      <Stack.Screen {...StackConfig['ExploreScreen']} />
     </Stack.Navigator>
   );
 };

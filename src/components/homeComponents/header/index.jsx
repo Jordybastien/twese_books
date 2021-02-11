@@ -35,7 +35,7 @@ const HeaderComponent = ({ props, cartItems }) => {
         </View>
         <View>
           <Image
-            source={require('../../../../assets/icons/black.png')}
+            source={require('../../../../assets/icons/original.png')}
             style={styles.logo}
           />
         </View>
@@ -43,7 +43,7 @@ const HeaderComponent = ({ props, cartItems }) => {
           <TouchableOpacity
             onPress={() => props.navigation.navigate('CartScreen')}
           >
-            <Feather name="shopping-bag" size={24} color={fifthColor} />
+            <Feather name="shopping-bag" size={24} color={lightOrange} />
             {cartItems && cartItems.length !== 0 && (
               <View style={styles.cartCounterContainer}>
                 {/* <Text style={styles.cartCounterLabel}>{cartItems.length}</Text> */}
@@ -54,12 +54,13 @@ const HeaderComponent = ({ props, cartItems }) => {
       </View>
       <View style={styles.secondRow}>
         <View style={styles.searchContainer}>
-          <AntDesign name="search1" size={24} color={fifthColor} />
+          <AntDesign name="search1" size={24} color={lightOrange} />
           <View>
             <TextInput
               style={styles.txtBox}
               placeholder="Search Anything"
               autoCapitalize="none"
+              placeholderTextColor={lightOrange}
             />
           </View>
         </View>
@@ -67,7 +68,7 @@ const HeaderComponent = ({ props, cartItems }) => {
           style={styles.filterContainer}
           onPress={() => props.navigation.navigate('FilterScreen')}
         >
-          <Octicons name="settings" size={24} color={white} />
+          <Octicons name="settings" size={24} color={fifthColor} />
         </TouchableOpacity>
       </View>
     </View>
@@ -77,10 +78,11 @@ const HeaderComponent = ({ props, cartItems }) => {
 export default connect()(HeaderComponent);
 
 const styles = StyleSheet.create({
+  container: {},
   firstRow: {
     justifyContent: 'space-between',
     width: width,
-    backgroundColor: lightOrange,
+    backgroundColor: fifthColor,
 
     paddingLeft: 20,
     paddingRight: 20,
@@ -90,7 +92,7 @@ const styles = StyleSheet.create({
   secondRow: {
     justifyContent: 'space-between',
     width: width,
-    backgroundColor: lightOrange,
+    backgroundColor: fifthColor,
 
     paddingLeft: 20,
     paddingRight: 20,
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
   filterContainer: {
     width: 50,
     height: 50,
-    backgroundColor: fifthColor,
+    backgroundColor: lightOrange,
     borderRadius: 50,
     justifyContent: 'center',
     alignItems: 'center',
@@ -126,24 +128,25 @@ const styles = StyleSheet.create({
   },
   txtBox: {
     marginLeft: 10,
+    color: lightOrange,
   },
   hamMenu: {},
   ham1: {
-    backgroundColor: fifthColor,
+    backgroundColor: lightOrange,
     width: 15,
     height: 3,
     marginBottom: 3,
     borderRadius: 5,
   },
   ham2: {
-    backgroundColor: fifthColor,
+    backgroundColor: lightOrange,
     width: 20,
     height: 3,
     marginBottom: 3,
     borderRadius: 5,
   },
   ham3: {
-    backgroundColor: fifthColor,
+    backgroundColor: lightOrange,
     width: 10,
     height: 3,
     borderRadius: 5,
@@ -157,7 +160,10 @@ const styles = StyleSheet.create({
     // padding: 5,
     width: 10,
     height: 10,
-
   },
-  cartCounterLabel: {},
+  cartCounterLabel: {
+    fontFamily: 'regular',
+    fontSize: 10,
+    color: fifthColor,
+  },
 });

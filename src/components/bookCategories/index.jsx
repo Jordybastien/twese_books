@@ -18,14 +18,6 @@ const BookCategories = ({ props, title }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        {title && (
-          <View>
-            <Text style={styles.headerTitle}>{title}</Text>
-          </View>
-        )}
-        {/* <TouchableOpacity>
-          <Feather name="arrow-right" size={24} color={fifthColor} />
-        </TouchableOpacity> */}
       </View>
       {genreBooks.map((book, index) => (
         <SingleBook key={index} props={props} book={book} />

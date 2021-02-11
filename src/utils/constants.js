@@ -5,6 +5,20 @@ export const BookCover = `${serverLink}BookCover/`;
 export const UserProfile = `${serverLink}UserProfile/`;
 export const ReadBookLink = `${serverLink}BookFile/`;
 
+export const termsOfUse = `${serverLink}TermsofUse`;
+export const privacyPolicy = `${serverLink}PrivacyPolicy`;
+export const buyingPolicy = `${serverLink}BuyingPolicy`;
+export const cancellationPolicy = `${serverLink}CancellationPolicy`;
+export const codeOfConduct = `${serverLink}CodeofConduct`;
+export const paymentPolicy = `${serverLink}PaymentPolicy`;
+export const sellingPolicy = `${serverLink}SellingPolicy`;
+export const termsAndConditions = `${serverLink}TermsandConditions`;
+
+export const aboutUs = `${serverLink}AboutUs`;
+export const readerGuidelines = `${serverLink}ReaderGuidelines`;
+export const authorGuidelines = `${serverLink}AuthorGuidelines`;
+export const freelancerGuideline = `${serverLink}FreelancerGuideline`;
+
 export const colorsPool = [
   '#fed6e0',
   '#c3fdbc',

@@ -18,7 +18,7 @@ const UserOrdersScreen = (props) => {
       <View style={styles.header}>
         <View>
           <TouchableOpacity onPress={() => props.navigation.goBack()}>
-            <AntDesign name="close" size={24} color={fifthColor} />
+            <AntDesign name="close" size={24} color={lightOrange} />
           </TouchableOpacity>
         </View>
         <View style={styles.headerTitleContainer}>
@@ -54,10 +54,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomColor: lowGray,
     borderBottomWidth: 1,
+    backgroundColor: fifthColor,
   },
   headerTitle: {
     fontFamily: 'bold',
-    color: fifthColor,
+    color: lightOrange,
     fontSize: 18,
   },
   headerTitleContainer: {

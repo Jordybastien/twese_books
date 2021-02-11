@@ -205,6 +205,38 @@ const DrawerContent = (props) => {
               </View>
             </TouchableOpacity>
           )}
+          <TouchableOpacity
+            style={[styles.singleDrawerItem, styles.borderTopHere]}
+            onPress={() => props.navigation.navigate('PoliciesScreen')}
+          >
+            <View style={styles.leftPart}>
+              <View style={styles.drawerItemIconHolder}>
+                <Feather name="layers" size={24} color={gray} />
+              </View>
+              <View>
+                <Text style={styles.drawerItemLabel}>Policy</Text>
+              </View>
+            </View>
+            <View style={styles.rightPart}>
+              <MaterialIcons name="navigate-next" size={24} color={gray} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.singleDrawerItem, styles.borderTopHere]}
+            onPress={() => props.navigation.navigate('ExploreScreen')}
+          >
+            <View style={styles.leftPart}>
+              <View style={styles.drawerItemIconHolder}>
+                <FontAwesome name="wpexplorer" size={24} color={gray} />
+              </View>
+              <View>
+                <Text style={styles.drawerItemLabel}>Explore</Text>
+              </View>
+            </View>
+            <View style={styles.rightPart}>
+              <MaterialIcons name="navigate-next" size={24} color={gray} />
+            </View>
+          </TouchableOpacity>
         </View>
       </DrawerContentScrollView>
     </View>
@@ -293,6 +325,10 @@ const styles = StyleSheet.create({
   borderBottomHere: {
     borderBottomColor: lowGray,
     borderBottomWidth: 1,
+  },
+  borderTopHere: {
+    borderTopColor: lowGray,
+    borderTopWidth: 1,
   },
   drawerItemLabel: {
     fontFamily: 'bold',

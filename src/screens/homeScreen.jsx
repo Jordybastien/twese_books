@@ -52,7 +52,7 @@ class HomeScreen extends Component {
           {/* <BestSellers /> */}
           <NewRelease props={this.props} />
           <PopularBooks props={this.props} title="Popular Books" />
-          <WeekDeals props={this.props} />
+          {/* <WeekDeals props={this.props} /> */}
         </ScrollView>
       </View>
     ) : (

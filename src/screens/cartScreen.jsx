@@ -59,7 +59,7 @@ class CartScreen extends Component {
         <View style={styles.header}>
           <View>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <AntDesign name="close" size={24} color={fifthColor} />
+              <AntDesign name="close" size={24} color={lightOrange} />
             </TouchableOpacity>
           </View>
           <View style={styles.headerTitleContainer}>
@@ -117,46 +117,48 @@ class CartScreen extends Component {
             </View>
           )}
 
-          <View style={styles.footer}>
-            <View
-              style={[
-                styles.footerElement,
-                {
-                  borderBottomColor: lowGray,
-                  borderBottomWidth: 1,
-                },
-              ]}
-            >
-              <View>
-                <Text style={styles.footerElementLabel}>
-                  Items({cartItems.length})
-                </Text>
+          {cartItems && cartItems.length !== 0 && (
+            <View style={styles.footer}>
+              <View
+                style={[
+                  styles.footerElement,
+                  {
+                    borderBottomColor: lowGray,
+                    borderBottomWidth: 1,
+                  },
+                ]}
+              >
+                <View>
+                  <Text style={styles.footerElementLabel}>
+                    Items({cartItems.length})
+                  </Text>
+                </View>
+                <View>
+                  <Text style={styles.footerElementValue}>$ {totalPrice}</Text>
+                </View>
               </View>
-              <View>
-                <Text style={styles.footerElementValue}>$ {totalPrice}</Text>
+              <View style={[styles.footerElement, { marginBottom: 40 }]}>
+                <View>
+                  <Text style={styles.footerElementLabel}>Subtotal</Text>
+                </View>
+                <View>
+                  <Text style={styles.footerElementValue}>$ {totalPrice}</Text>
+                </View>
               </View>
+              <Button
+                label="Checkout"
+                toExecuteOnClick={() =>
+                  this.props.isAuth
+                    ? this.props.navigation.navigate('ShippingAddressScreen', {
+                        totalPrice,
+                        cartItems:
+                          cartItems && cartItems.map((cartItem) => cartItem.id),
+                      })
+                    : this.props.navigation.navigate('LoginScreen')
+                }
+              />
             </View>
-            <View style={[styles.footerElement, { marginBottom: 40 }]}>
-              <View>
-                <Text style={styles.footerElementLabel}>Subtotal</Text>
-              </View>
-              <View>
-                <Text style={styles.footerElementValue}>$ {totalPrice}</Text>
-              </View>
-            </View>
-            <Button
-              label="Checkout"
-              toExecuteOnClick={() =>
-                this.props.isAuth
-                  ? this.props.navigation.navigate('ShippingAddressScreen', {
-                      totalPrice,
-                      cartItems:
-                        cartItems && cartItems.map((cartItem) => cartItem.id),
-                    })
-                  : this.props.navigation.navigate('LoginScreen')
-              }
-            />
-          </View>
+          )}
         </ScrollView>
       </View>
     );
@@ -182,10 +184,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomColor: lowGray,
     borderBottomWidth: 1,
+    backgroundColor: fifthColor,
   },
   headerTitle: {
     fontFamily: 'bold',
-    color: fifthColor,
+    color: lightOrange,
     fontSize: 18,
   },
   headerTitleContainer: {

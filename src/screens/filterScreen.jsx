@@ -188,7 +188,7 @@ class FilterScreen extends Component {
         <View style={styles.header}>
           <View>
             <TouchableOpacity onPress={() => this.props.navigation.goBack()}>
-              <AntDesign name="close" size={24} color={fifthColor} />
+              <AntDesign name="close" size={24} color={lightOrange} />
             </TouchableOpacity>
           </View>
           <View>
@@ -434,10 +434,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 20,
     justifyContent: 'space-between',
+    backgroundColor: fifthColor,
   },
   headerTitle: {
     fontFamily: 'bold',
-    color: fifthColor,
+    color: lightOrange,
     fontSize: 18,
   },
   resetContainer: {
