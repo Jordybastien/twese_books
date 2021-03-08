@@ -29,12 +29,7 @@ import {
   lightOrange,
   lowLightBlue,
 } from '../utils/colors';
-import {
-  aboutUs,
-  readerGuidelines,
-  authorGuidelines,
-  freelancerGuideline,
-} from '../utils/constants';
+import { aboutUs } from '../utils/constants';
 
 const { width, height } = Dimensions.get('window');
 
@@ -74,71 +69,7 @@ const ExploreScreen = (props) => {
               <MaterialIcons name="navigate-next" size={24} color={gray} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.borderBottomHere]}
-            onPress={() =>
-              props.navigation.navigate('WebViewScreen', {
-                title: 'Reader Guidelines',
-                link: readerGuidelines,
-              })
-            }
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <Entypo name="open-book" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>Reader Guidelines</Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={[styles.singleDrawerItem, styles.borderBottomHere]}
-            onPress={() =>
-              props.navigation.navigate('WebViewScreen', {
-                title: 'Authors Guidelines',
-                link: authorGuidelines,
-              })
-            }
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <FontAwesome name="pencil-square-o" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>Authors Guidelines</Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.singleDrawerItem}
-            onPress={() =>
-              props.navigation.navigate('WebViewScreen', {
-                title: 'Freelancer Guidelines',
-                link: freelancerGuideline,
-              })
-            }
-          >
-            <View style={styles.leftPart}>
-              <View style={styles.drawerItemIconHolder}>
-                <FontAwesome name="user-circle-o" size={24} color={gray} />
-              </View>
-              <View>
-                <Text style={styles.drawerItemLabel}>
-                  Freelancer Guidelines
-                </Text>
-              </View>
-            </View>
-            <View style={styles.rightPart}>
-              <MaterialIcons name="navigate-next" size={24} color={gray} />
-            </View>
-          </TouchableOpacity>
+          {/* guidelines where here */}
         </View>
       </ScrollView>
     </View>

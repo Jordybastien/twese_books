@@ -103,6 +103,7 @@ const styles = StyleSheet.create({
   logo: {
     width: 50,
     height: 50,
+    resizeMode: 'contain',
   },
   bookCartContainer: {
     flexDirection: 'row',

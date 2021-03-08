@@ -15,6 +15,7 @@ import {
   MaterialCommunityIcons,
   Ionicons,
   FontAwesome,
+  Entypo,
 } from '@expo/vector-icons';
 import { connect } from 'react-redux';
 import {
@@ -36,6 +37,9 @@ import {
   paymentPolicy,
   sellingPolicy,
   termsAndConditions,
+  readerGuidelines,
+  authorGuidelines,
+  freelancerGuideline,
 } from '../utils/constants';
 
 const { width, height } = Dimensions.get('window');
@@ -204,27 +208,71 @@ const PoliciesScreen = (props) => {
               <MaterialIcons name="navigate-next" size={24} color={gray} />
             </View>
           </TouchableOpacity>
-          {/* <TouchableOpacity
-            style={styles.singleDrawerItem}
+          <TouchableOpacity
+            style={[styles.singleDrawerItem, styles.borderBottomHere]}
             onPress={() =>
               props.navigation.navigate('WebViewScreen', {
-                title: 'Terms & Conditions',
-                link: termsAndConditions,
+                title: 'Reader Guidelines',
+                link: readerGuidelines,
               })
             }
           >
             <View style={styles.leftPart}>
               <View style={styles.drawerItemIconHolder}>
-                <AntDesign name="questioncircleo" size={24} color={gray} />
+                <Entypo name="open-book" size={24} color={gray} />
               </View>
               <View>
-                <Text style={styles.drawerItemLabel}>Terms & Conditions</Text>
+                <Text style={styles.drawerItemLabel}>Reader Guidelines</Text>
               </View>
             </View>
             <View style={styles.rightPart}>
               <MaterialIcons name="navigate-next" size={24} color={gray} />
             </View>
-          </TouchableOpacity> */}
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.singleDrawerItem, styles.borderBottomHere]}
+            onPress={() =>
+              props.navigation.navigate('WebViewScreen', {
+                title: 'Authors Guidelines',
+                link: authorGuidelines,
+              })
+            }
+          >
+            <View style={styles.leftPart}>
+              <View style={styles.drawerItemIconHolder}>
+                <FontAwesome name="pencil-square-o" size={24} color={gray} />
+              </View>
+              <View>
+                <Text style={styles.drawerItemLabel}>Authors Guidelines</Text>
+              </View>
+            </View>
+            <View style={styles.rightPart}>
+              <MaterialIcons name="navigate-next" size={24} color={gray} />
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.singleDrawerItem}
+            onPress={() =>
+              props.navigation.navigate('WebViewScreen', {
+                title: 'Freelancer Guidelines',
+                link: freelancerGuideline,
+              })
+            }
+          >
+            <View style={styles.leftPart}>
+              <View style={styles.drawerItemIconHolder}>
+                <FontAwesome name="user-circle-o" size={24} color={gray} />
+              </View>
+              <View>
+                <Text style={styles.drawerItemLabel}>
+                  Freelancer Guidelines
+                </Text>
+              </View>
+            </View>
+            <View style={styles.rightPart}>
+              <MaterialIcons name="navigate-next" size={24} color={gray} />
+            </View>
+          </TouchableOpacity>
         </View>
       </ScrollView>
     </View>
