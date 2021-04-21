@@ -9,11 +9,12 @@
     "sdkVersion": "38.0.0",
     "icon": "https://res.cloudinary.com/dodfpnbik/image/upload/v1609923058/Original_fkcdvy.png",
     "ios": {
-      "bundleIdentifier": "org.twese.exp"
+      "bundleIdentifier": "org.tweseco.exp"
     },
     "android": {
-      "package": "org.twese.exp",
-      "versionCode": 1
+      "package": "org.tweseco.exp",
+      "versionCode": 6,
+      "permissions": []
     }
   }
 }
