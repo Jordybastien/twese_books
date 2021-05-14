@@ -25,18 +25,20 @@ const BannerComponent = ({ props }) => {
     <View style={styles.container}>
       <View style={styles.bookDetailsContainer}>
         <View style={styles.titleContainer}>
-          <Text style={styles.bookTitle}>Books of the Month</Text>
+          <Text style={styles.bookTitleTopQuote}>Twese Editors'</Text>
+          <Text style={styles.bookTitleTop}>Advertise On</Text>
+          <Text style={styles.bookTitle}>Twese</Text>
         </View>
 
-        <TouchableOpacity style={styles.buttonHolder}>
+        {/* <TouchableOpacity style={styles.buttonHolder}>
           <View style={styles.buttonContainer}>
             <Text style={styles.btnLabel}>See more</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
       </View>
       <View style={styles.imgContainer}>
         <Image
-          source={require('../../../../assets/book.jpg')}
+          source={require('../../../../assets/ad.png')}
           style={styles.bookImg}
         />
       </View>
@@ -52,7 +54,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     paddingTop: 30,
     backgroundColor: lightOrange,
   },
@@ -64,14 +66,27 @@ const styles = StyleSheet.create({
   },
   imgContainer: {},
   bookDetailsContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     marginRight: 10,
   },
   bookTitle: {
     fontFamily: 'bold',
     color: fifthColor,
+    fontSize: 30,
+    width: 200,
+  },
+  bookTitleTop: {
+    fontFamily: 'regular',
+    color: fifthColor,
     fontSize: 20,
     width: 200,
+  },
+  bookTitleTopQuote: {
+    fontFamily: 'regular',
+    color: fifthColor,
+    fontSize: 15,
+    width: 200,
+    marginBottom: 15,
   },
   bookAuthor: {
     fontFamily: 'regular',
@@ -98,6 +113,9 @@ const styles = StyleSheet.create({
     fontSize: 15,
   },
   titleContainer: {
-    marginBottom: 30,
+    // marginBottom: 30,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

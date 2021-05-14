@@ -13,7 +13,7 @@
     },
     "android": {
       "package": "org.tweseco.exp",
-      "versionCode": 6,
+      "versionCode": 7,
       "permissions": []
     }
   }

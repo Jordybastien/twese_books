@@ -3,15 +3,16 @@ import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import StarRating from 'react-native-star-rating';
 import { fifthColor, firstColor, gray } from '../../../utils/colors';
 import { AntDesign, Feather } from '@expo/vector-icons';
+import moment from 'moment';
 
 const { width, height } = Dimensions.get('window');
 
-const Review = () => {
+const Review = ({ review }) => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <View style={styles.reviewTitleContainer}>
-          <Text style={styles.reviewTitle}>Review Title</Text>
+          <Text style={styles.reviewTitle}>{review && review.title}</Text>
         </View>
         <View>
           <StarRating
@@ -21,7 +22,7 @@ const Review = () => {
             halfStar={'ios-star-half'}
             iconSet={'Ionicons'}
             maxStars={5}
-            rating={5}
+            rating={review ? Number(review.review_rating) : 0}
             fullStarColor={firstColor}
             starSize={15}
           />
@@ -30,20 +31,16 @@ const Review = () => {
       <View style={styles.body}>
         <View>
           <Text style={styles.review}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat. Duis aute irure dolor in
-            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-            culpa qui officia deserunt mollit anim id est laborum.
+            {review && review.review_description}
           </Text>
         </View>
         <View style={styles.timeStampContainer}>
-          <Text style={styles.timeStamp}>Staci, February 22, 2020</Text>
+          <Text style={styles.timeStamp}>
+            {review && moment(review.created_at).format('MMMM Do YYYY')}
+          </Text>
         </View>
       </View>
-      <View style={styles.footer}>
+      {/* <View style={styles.footer}>
         <View style={styles.footerElement}>
           <AntDesign name="like2" size={24} color={fifthColor} />
           <Text style={styles.footerLabel}>90</Text>
@@ -54,9 +51,9 @@ const Review = () => {
         </View>
         <View style={styles.footerElement}>
           <Feather name="flag" size={24} color={fifthColor} />
-          {/* <Text style={styles.footerLabel}>90</Text> */}
+          <Text style={styles.footerLabel}>90</Text>
         </View>
-      </View>
+      </View> */}
     </View>
   );
 };

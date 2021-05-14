@@ -37,7 +37,7 @@ const SingleBook = ({ props, book }) => {
         <View>
           <Text style={styles.bookAuthor}>{book.name}</Text>
         </View>
-        <View style={{ width: 80 }}>
+        {/* <View style={{ width: 80 }}>
           <StarRating
             disabled={false}
             emptyStar={'ios-star-outline'}
@@ -52,7 +52,7 @@ const SingleBook = ({ props, book }) => {
         </View>
         <View>
           <Text style={styles.bookReviews}>6 reviews</Text>
-        </View>
+        </View> */}
       </View>
     </TouchableOpacity>
   );

@@ -13,16 +13,35 @@ import {
   lightBlue,
 } from '../../../utils/colors';
 
-const ReviewsTab = () => {
+const ReviewsTab = ({ bookInfo }) => {
+  
+  const reviewsCount = bookInfo[0].Reviews.length;
+  const totalReviews =
+    bookInfo[0].Reviews.length !== 0
+      ? bookInfo[0].Reviews.reduce(
+          (total, el) => total + Number(el.review_rating),
+          0
+        )
+      : 0;
+
+  const average = totalReviews / reviewsCount;
+
+  const checkTotalRating = (num) => {
+    return bookInfo[0].Reviews.filter((el) => Number(el.review_rating) === num)
+      .length;
+  };
+
   return (
     <View style={styles.reviewsTab}>
       <View style={styles.reviewWrapper}>
         <View style={styles.reviewLeftSide}>
           <View>
-            <Text style={styles.reviewsAverage}>4.6</Text>
+            <Text style={styles.reviewsAverage}>
+              {average ? average.toFixed(1) : 0}
+            </Text>
           </View>
           <View>
-            <Text style={styles.reviewsCountInTab}>3,714 reviews</Text>
+            <Text style={styles.reviewsCountInTab}>{reviewsCount} reviews</Text>
           </View>
           <View>
             <StarRating
@@ -56,7 +75,7 @@ const ReviewsTab = () => {
               />
             </View>
             <View>
-              <Text style={styles.progressBarLabel}>205</Text>
+              <Text style={styles.progressBarLabel}>{checkTotalRating(5)}</Text>
             </View>
           </View>
           <View style={styles.singleRatingHolder}>
@@ -76,7 +95,7 @@ const ReviewsTab = () => {
               />
             </View>
             <View>
-              <Text style={styles.progressBarLabel}>55</Text>
+              <Text style={styles.progressBarLabel}>{checkTotalRating(4)}</Text>
             </View>
           </View>
           <View style={styles.singleRatingHolder}>
@@ -96,7 +115,7 @@ const ReviewsTab = () => {
               />
             </View>
             <View>
-              <Text style={styles.progressBarLabel}>23</Text>
+              <Text style={styles.progressBarLabel}>{checkTotalRating(3)}</Text>
             </View>
           </View>
           <View style={styles.singleRatingHolder}>
@@ -116,7 +135,7 @@ const ReviewsTab = () => {
               />
             </View>
             <View>
-              <Text style={styles.progressBarLabel}>0</Text>
+              <Text style={styles.progressBarLabel}>{checkTotalRating(2)}</Text>
             </View>
           </View>
           <View style={styles.singleRatingHolder}>
@@ -136,7 +155,7 @@ const ReviewsTab = () => {
               />
             </View>
             <View>
-              <Text style={styles.progressBarLabel}>4</Text>
+              <Text style={styles.progressBarLabel}>{checkTotalRating(1)}</Text>
             </View>
           </View>
         </View>

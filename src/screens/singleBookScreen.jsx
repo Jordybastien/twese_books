@@ -54,7 +54,7 @@ class SingleBookScreen extends Component {
   render() {
     const { tab, showCart } = this.state;
 
-    const { bookInfo } = this.props;
+    const { bookInfo, isAuth, authedUser } = this.props;
 
     return (
       <View style={styles.container}>
@@ -181,7 +181,14 @@ class SingleBookScreen extends Component {
               {tab === 1 && <DescriptionTab bookInfo={bookInfo} />}
               {tab === 2 && <ProductTab bookInfo={bookInfo} />}
               {tab === 3 && <ReviewsTab bookInfo={bookInfo} />}
-              {tab === 3 && <ReviewsText />}
+              {tab === 3 && (
+                <ReviewsText
+                  bookInfo={bookInfo}
+                  isAuth={isAuth}
+                  authedUser={authedUser}
+                  dispatch={this.props.dispatch}
+                />
+              )}
             </View>
           </View>
         </ScrollView>
@@ -190,9 +197,11 @@ class SingleBookScreen extends Component {
   }
 }
 
-const mapStateToProps = ({ bookInfo }) => {
+const mapStateToProps = ({ bookInfo, authedUser }) => {
   return {
     bookInfo: bookInfo && Object.values(bookInfo),
+    authedUser,
+    isAuth: Object.keys(authedUser).length !== 0,
   };
 };
 
@@ -212,7 +221,7 @@ const styles = StyleSheet.create({
   userImage: {
     width: width,
     height: height / 2,
-    // resizeMode: 'center',
+    resizeMode: 'center',
   },
   backBtnContainer: {
     position: 'absolute',
