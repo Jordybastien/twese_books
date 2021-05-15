@@ -160,7 +160,7 @@ class SingleBookScreen extends Component {
                   Product Details
                 </Text>
               </TouchableOpacity>
-              <TouchableOpacity
+              {/* <TouchableOpacity
                 style={[
                   styles.tabLabelHolder,
                   tab === 3 && styles.selectedtabLabelHolder,
@@ -175,7 +175,7 @@ class SingleBookScreen extends Component {
                 >
                   Reviews
                 </Text>
-              </TouchableOpacity>
+              </TouchableOpacity> */}
             </View>
             <View style={styles.tabContentHolder}>
               {tab === 1 && <DescriptionTab bookInfo={bookInfo} />}

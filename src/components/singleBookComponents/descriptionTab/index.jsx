@@ -5,7 +5,9 @@ const DescriptionTab = ({ bookInfo }) => {
   return (
     <View style={styles.descriptionTab}>
       <Text style={styles.descriptionText}>
-        {bookInfo[0].full_book_description.replace(/(<([^>]+)>)/gi, '')}
+        {bookInfo[0].full_book_description
+          .replace(/(<([^>]+)>)/gi, '')
+          .replace(/\&nbsp;/g, '')}
       </Text>
     </View>
   );
@@ -17,6 +19,6 @@ const styles = StyleSheet.create({
   descriptionTab: {},
   descriptionText: {
     fontFamily: 'regular',
-    lineHeight: 25,
+    lineHeight: 35,
   },
 });
